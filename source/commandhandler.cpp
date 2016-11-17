@@ -54,9 +54,9 @@ void CommandHandler::parseCommand ( void )
     {
         m_outputFileName = "a.hex" ;
     }
-    if ( m_outputMode != 0 || m_outputMode != 1 )
+    if ( m_outputMode != 0 && m_outputMode != 1 )
     {
-        qWarning () << "Mode number illegal." ;
+        qWarning () << "Mode number" << m_outputMode <<"is illegal." ;
         exit ( 0 ) ;
     }
 }

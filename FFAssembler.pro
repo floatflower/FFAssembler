@@ -9,10 +9,10 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp \
-    commandhandler.cpp \
-    ffassembler.cpp
+SOURCES += source/main.cpp \
+    source/commandhandler.cpp \
+    source/ffassembler.cpp
 
 HEADERS += \
-    commandhandler.h \
-    ffassembler.h
+    source/commandhandler.h \
+    source/ffassembler.h
