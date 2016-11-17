@@ -8,7 +8,7 @@ FFAssembler SIC/XE assemler
 **聯絡我:**zxc110888asd@gmail.com
 
 ### 如何編譯:
-方法1. 安裝[Qt C++ Framework Qt IDE](https://www.qt.io/)
+方法1. 安裝[Qt C++ Framework Qt IDE](https://www.qt.io/)   
 方法2. 手動編譯    
 Ubuntu:
 ```shell
