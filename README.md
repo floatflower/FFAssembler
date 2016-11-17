@@ -9,7 +9,7 @@ FFAssembler SIC/XE assemler
 
 ### 如何編譯:
 方法1. 安裝[Qt C++ Framework Qt IDE](https://www.qt.io/)
-方法2.
+方法2. 手動編譯    
 Ubuntu:
 ```shell
 $ sudo apt-get install qt5base-dev qt5-qmake
