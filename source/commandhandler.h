@@ -13,6 +13,9 @@ public:
     void parseCommand ( void ) ; // 解譯指令
     void parseCommandTest ( void ) ; // 解譯指令結果測試
     void help ( void ) ; // 幫助訊息
+    QString inputFileName ( void ) ;
+    QString outputFileName ( void ) ;
+    int outputMode ( void ) ;
 signals:
 
 public slots:

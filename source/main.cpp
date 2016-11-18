@@ -1,14 +1,12 @@
 #include <QCoreApplication>
 
-#include "commandhandler.h"
+#include "ffassembler.h"
 
-int main(int argc, char **argv )
+int main ( int argc , char **argv )
 {
 
-    CommandHandler mainHandler ;
-    mainHandler.setCommand ( argc , argv ) ;
-    mainHandler.parseCommand ( ) ;
-    mainHandler.parseCommandTest ( ) ;
-
+    FFAssembler assembler;
+    assembler.setCommand ( argc , argv ) ;
+    assembler.run( ) ;
     return 0 ;
 }

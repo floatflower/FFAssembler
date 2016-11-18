@@ -74,3 +74,18 @@ void CommandHandler::help ( void )
              << "\t--output or -o OUTPUT_FILE_NAME\n"
              << "\t--mode or -m OUTPUT_MODE";
 }
+
+QString CommandHandler::inputFileName ( void )
+{
+    return m_inputFileName ;
+}
+
+QString CommandHandler::outputFileName ( void )
+{
+    return m_outputFileName ;
+}
+
+int CommandHandler::outputMode ( void )
+{
+    return m_outputMode ;
+}
