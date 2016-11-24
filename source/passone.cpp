@@ -6,9 +6,15 @@
 
 #include "passone.h"
 #include "instruction.h"
+#include "instructionset.h"
+#include "sicxesearch.h"
 
 PassOne::PassOne(QObject *parent) : QObject(parent)
 {
+    m_instructionSet = new InstructionSet ;
+    m_sicxeSearch = new SICXESearch ;
+    m_sicxeSearch -> buildDatabase( ) ;
+    m_sicxeSearch -> sicxeSearchTest ( ) ;
 }
 
 void PassOne::setInputFileName ( QString inputFileName )
@@ -90,10 +96,11 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
         temp_instruction -> setOperand ( temp_wordVector.at ( 0 ) ) ;
     }
     /*
-    qDebug()<< temp_instruction->symbol ( )
-            << temp_instruction->operand ( )
-            << temp_instruction->target ( ) ;
+    qDebug() << temp_instruction->symbol ( )
+             << temp_instruction->operand ( )
+             << temp_instruction->target ( ) ;
     */
+    m_instructionSet -> push_back( temp_instruction ) ;
 }
 
 QString PassOne::formatLine ( QString lineRaw )
@@ -121,4 +128,9 @@ QString PassOne::formatLine ( QString lineRaw )
         wordStart = true ;
     }
     return temp_lineProcessed ;
+}
+
+InstructionSet* PassOne::instructionSet ( void )
+{
+    return m_instructionSet ;
 }

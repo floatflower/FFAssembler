@@ -12,7 +12,8 @@ void FFAssembler::run ( void )
 {
     m_passOne -> setInputFileName ( m_commandHandler -> inputFileName ( ) ) ;
     m_passOne -> preprocessor ( ) ;
-
+    m_instructionSet = m_passOne -> instructionSet( ) ;
+    // m_instructionSet -> instructionSetTest ( ) ;
 }
 
 void FFAssembler::setCommand ( int argc , char **argv )

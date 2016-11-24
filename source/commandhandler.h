@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QHash>
 
 class CommandHandler : public QObject
 {

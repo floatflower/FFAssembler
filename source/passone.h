@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QString>
 
+#include "instructionset.h"
+#include "sicxesearch.h"
+
 class PassOne : public QObject
 {
     Q_OBJECT
@@ -13,11 +16,14 @@ public:
     void preprocessor ( void ) ;
     void packageInstruction ( QString lineProcessed , int lineNumber ) ;
     QString formatLine ( QString lineRaw ) ;
+    InstructionSet* instructionSet ( void ) ;
 signals:
 
 public slots:
 private:
     QString m_inputFileName ;
+    InstructionSet *m_instructionSet ;
+    SICXESearch *m_sicxeSearch ;
 };
 
 #endif // PASSONE_H

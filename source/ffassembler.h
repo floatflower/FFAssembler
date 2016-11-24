@@ -5,6 +5,7 @@
 
 #include "commandhandler.h"
 #include "passone.h"
+#include "instructionset.h"
 
 class FFAssembler : public QObject
 {
@@ -20,6 +21,7 @@ public slots:
 private:
     CommandHandler *m_commandHandler ;
     PassOne *m_passOne ;
+    InstructionSet *m_instructionSet ;
 };
 
 #endif // FFASSEMBLER_H
