@@ -6,6 +6,7 @@
 #include "commandhandler.h"
 #include "passone.h"
 #include "instructionset.h"
+#include "tablehandler.h"
 
 class FFAssembler : public QObject
 {
@@ -22,6 +23,7 @@ private:
     CommandHandler *m_commandHandler ;
     PassOne *m_passOne ;
     InstructionSet *m_instructionSet ;
+    TableHandler *m_tableHandler ;
 };
 
 #endif // FFASSEMBLER_H

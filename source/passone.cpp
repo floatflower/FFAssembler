@@ -9,13 +9,16 @@
 #include "instructionset.h"
 #include "sicxesearch.h"
 #include "sicxesearchresult.h"
+#include "globalutility.h"
+#include "tablehandler.h"
 
 PassOne::PassOne(QObject *parent) : QObject(parent)
 {
     m_instructionSet = new InstructionSet ;
     m_sicxeSearch = new SICXESearch ;
     m_sicxeSearch -> buildDatabase( ) ;
-    m_sicxeSearch -> sicxeSearchTest ( ) ;
+    m_locationCounter = 0 ;
+    // m_sicxeSearch -> sicxeSearchTest ( ) ;
 }
 
 void PassOne::setInputFileName ( QString inputFileName )
@@ -46,12 +49,11 @@ void PassOne::preprocessor ( void )
         countLine ++ ;
         QString readFromFileLineByLine = in.readLine ( ) ;
         QString lineProcessed = formatLine ( readFromFileLineByLine ) ;
-        if ( lineProcessed == QString( "" ) )
+        if ( lineProcessed == QString( " " ) )
         {
             continue ;
         }
         packageInstruction ( lineProcessed , countLine ) ;
-
     }
 
     inputFile.close( ) ;
@@ -142,25 +144,58 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
              << temp_instruction->target ( ) ;
     */
 
-    instructionHandler ( temp_instruction ) ;
+    instructionHandler ( temp_instruction , lineNumber ) ;
 }
 
-void PassOne::instructionHandler ( Instruction* instruction )
+void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
 {
     SICXESearchResult *result = m_sicxeSearch -> search ( instruction ) ;
 
     if ( result -> type () == 3 ) // Operand
     {
-
+        int size = result -> size ( ) ;
+        if ( instruction -> symbol ( ) != QString ("") )
+        {
+            m_tableHandler -> symbolTable ( ) -> insertSymbol (
+                                                                instruction -> symbol( ) ,
+                                                                size ,
+                                                                lineNumber ,
+                                                                m_locationCounter
+                                                               ) ;
+        }
+        instruction -> setLocation ( m_locationCounter ) ;
+        instruction -> setSize ( size ) ;
+        m_locationCounter += size ;
     }
 
     if ( result -> type () == 2 ) // Variable
     {
-
+        int size = variableSize ( instruction , lineNumber ) ;
+        if ( instruction -> symbol ( ) == QString ("") )
+        {
+            qDebug() << "[Error] At line"
+                     << lineNumber
+                     << ": Variable :"
+                     << instruction -> operand ()
+                     << "doesn't have symbol." ;
+            return ;
+        }
+        else
+        {
+            m_tableHandler -> symbolTable ( ) -> insertSymbol (
+                                                                instruction -> symbol( ) ,
+                                                                size ,
+                                                                lineNumber ,
+                                                                m_locationCounter
+                                                               ) ;
+            instruction -> setLocation ( m_locationCounter ) ;
+            instruction -> setSize ( size ) ;
+            m_locationCounter += size ;
+        }
     }
     if ( result -> type () == 1 ) // Assembler Directive
     {
-
+        assemblerDirectiveAction ( instruction ) ;
     }
     m_instructionSet -> push_back ( instruction ) ;
 }
@@ -200,4 +235,43 @@ QString PassOne::formatLine ( QString lineRaw )
 InstructionSet* PassOne::instructionSet ( void )
 {
     return m_instructionSet ;
+}
+
+int PassOne::variableSize ( Instruction * instruction , int lineNumber )
+{
+    QString variableType = instruction -> operand ( ) ;
+    int size = 0 ;
+    if ( variableType == "RESW" )
+    {
+        bool ok ;
+        size = ( instruction -> target( ) ).toInt( &ok , 10 ) * 3 ;
+    }
+    if ( variableType == "RESB" )
+    {
+        bool ok ;
+        size = ( instruction -> target ( ) ).toInt( &ok , 10 ) ;
+    }
+    if ( variableType == "WORD" )
+    {
+        size = 3 ;
+    }
+    if ( variableType == "BYTE" )
+    {
+        size = GlobalUtility::stringSize( instruction -> target ( ) , lineNumber ) ;
+    }
+    return size ;
+}
+
+void PassOne::setTableHandler ( TableHandler *tableHandler )
+{
+    m_tableHandler = tableHandler ;
+}
+
+void PassOne::assemblerDirectiveAction ( Instruction *instruction )
+{
+    if ( instruction -> operand ( ) == "START" )
+    {
+        bool ok ;
+        m_locationCounter = ( instruction -> target ( ) ).toInt( &ok , 16 ) ;
+    }
 }

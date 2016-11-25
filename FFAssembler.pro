@@ -16,7 +16,10 @@ SOURCES += source/main.cpp \
     source/instruction.cpp \
     source/instructionset.cpp \
     source/sicxesearch.cpp \
-    source/sicxesearchresult.cpp
+    source/sicxesearchresult.cpp \
+    source/globalutility.cpp \
+    source/symboltable.cpp \
+    source/tablehandler.cpp
 
 HEADERS += \
     source/commandhandler.h \
@@ -25,4 +28,7 @@ HEADERS += \
     source/instruction.h \
     source/instructionset.h \
     source/sicxesearch.h \
-    source/sicxesearchresult.h
+    source/sicxesearchresult.h \
+    source/globalutility.h \
+    source/symboltable.h \
+    source/tablehandler.h
