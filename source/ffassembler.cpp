@@ -18,8 +18,8 @@ void FFAssembler::run ( void )
     m_passOne -> setTableHandler ( m_tableHandler ) ;
     m_passOne -> preprocessor ( ) ;
 
-    // m_tableHandler -> symbolTable() -> symbolTableTest () ;
     m_instructionSet = m_passOne -> instructionSet( ) ;
+    // m_tableHandler -> symbolTable() -> symbolTableTest () ;
     m_instructionSet -> instructionSetTest ( ) ;
 }
 

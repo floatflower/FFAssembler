@@ -158,7 +158,6 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
         {
             m_tableHandler -> symbolTable ( ) -> insertSymbol (
                                                                 instruction -> symbol( ) ,
-                                                                size ,
                                                                 lineNumber ,
                                                                 m_locationCounter
                                                                ) ;
@@ -184,7 +183,6 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
         {
             m_tableHandler -> symbolTable ( ) -> insertSymbol (
                                                                 instruction -> symbol( ) ,
-                                                                size ,
                                                                 lineNumber ,
                                                                 m_locationCounter
                                                                ) ;

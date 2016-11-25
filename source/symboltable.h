@@ -10,7 +10,7 @@ class SymbolTable : public QObject , public QHash < QString , int >
     Q_OBJECT
 public:
     explicit SymbolTable(QObject *parent = 0);
-    void insertSymbol ( QString symbol , int size , int lineNumber , int location ) ;
+    void insertSymbol ( QString symbol , int lineNumber , int location ) ;
     void symbolTableTest ( void ) ;
 signals:
 

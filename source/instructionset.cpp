@@ -10,6 +10,7 @@ InstructionSet::InstructionSet( void )
 
 void InstructionSet::instructionSetTest ( void )
 {
+    qDebug () << "Instruction Set : \n" ;
     for ( QVector < Instruction * >::iterator it_test = begin( ) ;
           it_test < end ( ) ;
           it_test ++ )

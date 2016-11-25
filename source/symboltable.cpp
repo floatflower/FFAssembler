@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <QHash>
+#include <QString>
 
 #include "symboltable.h"
 
@@ -9,7 +10,7 @@ SymbolTable::SymbolTable(QObject *parent)
 
 }
 
-void SymbolTable::insertSymbol ( QString symbol , int size , int lineNumber , int location )
+void SymbolTable::insertSymbol ( QString symbol , int lineNumber , int location )
 {
     if ( ! contains ( symbol ) )
     {
@@ -27,13 +28,14 @@ void SymbolTable::insertSymbol ( QString symbol , int size , int lineNumber , in
 
 void SymbolTable::symbolTableTest ( void )
 {
+    qDebug () << "SymbolTable : \n" ;
     for ( QHash::iterator it_symbolTable = begin ( ) ;
           it_symbolTable != end ( ) ;
           it_symbolTable ++ )
-    {
-        qDebug () << "Symbol :"
-                  << it_symbolTable.key()
-                  << "Location :"
-                  << it_symbolTable.value() ;
+    {   
+        qDebug () << QString("Symbol :%1  |  Location :%2  |")
+                     .arg( it_symbolTable.key() , 8 )
+                     .arg( it_symbolTable.value() , 6 ) ;
+        qDebug () << "------------------------------------------" ;
     }
 }
