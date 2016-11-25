@@ -9,6 +9,8 @@
 #include <QString>
 #include <QSet>
 
+#include "sicxesearchresult.h"
+#include "instruction.h"
 
 class SICXESearch : public QObject
 {
@@ -18,6 +20,11 @@ public:
     bool readDatabaseFile ( void ) ;
     bool buildDatabase ( void ) ;
     void sicxeSearchTest ( void ) ;
+    bool isOperand ( QString word ) ;
+    bool isVariable ( QString  word ) ;
+    bool isReserveWord ( QString word ) ;
+    bool isLegal ( QString word ) ;
+    SICXESearchResult* search ( Instruction *instruction ) ;
 signals:
 
 public slots:

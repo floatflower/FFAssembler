@@ -10,9 +10,10 @@
 #include <QBitArray>
 #include <QHash>
 #include <QString>
+#include <QSet>
 
 #include "sicxesearch.h"
-
+#include "instruction.h"
 
 SICXESearch::SICXESearch(QObject *parent) : QObject(parent)
 {
@@ -87,7 +88,7 @@ bool SICXESearch::buildDatabase ( void )
         m_opSizeTable -> insert ( temp_operand , temp_opcodeSize ) ;
     }
 
-    QJsonArray temp_reserveWordJsonData = mainObject.value("reserveword").toArray();
+    QJsonArray temp_reserveWordJsonData = mainObject.value("assemblerdirective").toArray();
     for ( QJsonArray::iterator it_reserveWordJsonData = temp_reserveWordJsonData.begin();
           it_reserveWordJsonData < temp_reserveWordJsonData.end() ;
           it_reserveWordJsonData ++ )
@@ -99,16 +100,79 @@ bool SICXESearch::buildDatabase ( void )
 
 void SICXESearch::sicxeSearchTest ( void )
 {
+    qDebug() << "Operand versus opcode : " ;
     for ( QHash< QString , QBitArray >::iterator it_opcodeTable = m_opcodeTable -> begin() ;
           it_opcodeTable != m_opcodeTable -> end() ;
           it_opcodeTable ++ )
     {
-        qDebug() << *it_opcodeTable ;
+        qDebug() << "Operand : " << it_opcodeTable.key()
+                 << "Opcode : " << it_opcodeTable.value() ;
     }
+    qDebug() << "Operand versus size : " ;
     for ( QHash< QString , int >::iterator it_opSizeTable = m_opSizeTable -> begin() ;
           it_opSizeTable != m_opSizeTable -> end() ;
           it_opSizeTable ++ )
     {
-        qDebug() << it_opSizeTable.key() << it_opSizeTable.value() ;
+        qDebug() << "Operand :" << it_opSizeTable.key()
+                 << "Size :" << it_opSizeTable.value() ;
     }
+    qDebug() << "Variable versus size : " ;
+    for ( QHash< QString , int >::iterator it_variableSizeTable = m_variableSizeTable -> begin() ;
+          it_variableSizeTable != m_variableSizeTable -> end() ;
+          it_variableSizeTable ++ )
+    {
+        qDebug() << "Variable :"<< it_variableSizeTable.key()
+                 << "Size :"  << it_variableSizeTable.value() ;
+    }
+    qDebug() << "Assembly directive : " ;
+    for ( QSet<QString>::iterator it_reserveWordTable = m_reserveWordTable -> begin () ;
+          it_reserveWordTable != m_reserveWordTable -> end() ;
+          it_reserveWordTable ++ )
+    {
+        qDebug() << "Assembly directive :"<< *it_reserveWordTable ;
+    }
+}
+bool SICXESearch::isOperand ( QString word )
+{
+    return m_opcodeTable -> contains ( word ) ;
+}
+
+bool SICXESearch::isVariable ( QString  word )
+{
+    return m_variableSizeTable -> contains ( word ) ;
+}
+
+bool SICXESearch::isReserveWord ( QString word )
+{
+    return m_reserveWordTable -> contains ( word ) ;
+}
+
+bool SICXESearch::isLegal ( QString word )
+{
+    return word == QString("") ||
+           m_opcodeTable -> contains ( word ) ||
+           m_variableSizeTable -> contains ( word ) ||
+           m_reserveWordTable -> contains ( word ) ;
+}
+
+SICXESearchResult* SICXESearch::search ( Instruction *instruction )
+{
+    SICXESearchResult *result = new SICXESearchResult ;
+    QString temp_operand = instruction -> operand ( ) ;
+    if ( isOperand ( temp_operand ) )
+    {
+        result -> setType ( 3 ) ;
+        result -> setOpcode ( m_opcodeTable -> value ( temp_operand ) ) ;
+        result -> setSize ( m_opSizeTable -> value ( temp_operand ) ) ;
+    }
+    else if ( isVariable ( temp_operand ) )
+    {
+        result -> setType ( 2 ) ;
+        result -> setSize ( m_variableSizeTable -> value ( temp_operand ) ) ;
+    }
+    else if ( isReserveWord ( temp_operand ) )
+    {
+        result -> setType ( 1 ) ;
+    }
+    return result ;
 }

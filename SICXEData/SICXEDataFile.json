@@ -30,5 +30,5 @@
 		["+TIX",4,"00101100"],["TIXR",2,"10111000"],["WD",3,"11011100"],["+WD",4,"11011100"],["JSUB",3,"01001000"],
 		["+JSUB",4,"01001000"]
 	],
-	"reserveword":["START","END","USE","BASE","EQU","ORG"]
+	"assemblerdirective":["START","END","USE","BASE","EQU","ORG"]
 }

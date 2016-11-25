@@ -15,7 +15,8 @@ SOURCES += source/main.cpp \
     source/passone.cpp \
     source/instruction.cpp \
     source/instructionset.cpp \
-    source/sicxesearch.cpp
+    source/sicxesearch.cpp \
+    source/sicxesearchresult.cpp
 
 HEADERS += \
     source/commandhandler.h \
@@ -23,4 +24,5 @@ HEADERS += \
     source/passone.h \
     source/instruction.h \
     source/instructionset.h \
-    source/sicxesearch.h
+    source/sicxesearch.h \
+    source/sicxesearchresult.h

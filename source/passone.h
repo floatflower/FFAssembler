@@ -15,6 +15,7 @@ public:
     void setInputFileName ( QString inputFileName ) ;
     void preprocessor ( void ) ;
     void packageInstruction ( QString lineProcessed , int lineNumber ) ;
+    void instructionHandler ( Instruction* instruction ) ;
     QString formatLine ( QString lineRaw ) ;
     InstructionSet* instructionSet ( void ) ;
 signals:

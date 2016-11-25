@@ -8,6 +8,7 @@
 #include "instruction.h"
 #include "instructionset.h"
 #include "sicxesearch.h"
+#include "sicxesearchresult.h"
 
 PassOne::PassOne(QObject *parent) : QObject(parent)
 {
@@ -60,7 +61,6 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
 {
     QString temp_word ;
     QVector<QString> temp_wordVector ;
-
     for ( QString::iterator it_lineProcessed = lineProcessed.begin ( ) ;
           it_lineProcessed < lineProcessed.end ( ) ;
           it_lineProcessed ++ )
@@ -82,25 +82,87 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
     Instruction *temp_instruction = new Instruction ;
     if ( temp_wordVector.size ( ) == 3 )
     {
-        temp_instruction -> setSymbol ( temp_wordVector.at ( 0 ) ) ;
-        temp_instruction -> setOperand ( temp_wordVector.at ( 1 ) ) ;
-        temp_instruction -> setTarget ( temp_wordVector.at ( 2 ) ) ;
+        if ( m_sicxeSearch -> isLegal ( temp_wordVector.at( 1 ) ) )
+        {
+            temp_instruction -> setSymbol ( temp_wordVector.at ( 0 ) ) ;
+            temp_instruction -> setOperand ( temp_wordVector.at ( 1 ) ) ;
+            temp_instruction -> setTarget ( temp_wordVector.at ( 2 ) ) ;
+        }
+        else
+        {
+            qDebug () << "[Error] At line :"
+                      << lineNumber
+                      << ":"
+                      << temp_wordVector.at ( 1 )
+                      << "is not a legal operand." ;
+        }
     }
     else if ( temp_wordVector.size ( ) == 2 )
     {
-        temp_instruction -> setOperand ( temp_wordVector.at ( 0 ) ) ;
-        temp_instruction -> setTarget ( temp_wordVector.at ( 1 ) ) ;
+        if ( m_sicxeSearch -> isLegal ( temp_wordVector.at( 0 ) ) )
+        {
+            temp_instruction -> setOperand ( temp_wordVector.at ( 0 ) ) ;
+            temp_instruction -> setTarget ( temp_wordVector.at ( 1 ) ) ;
+        }
+        else if ( m_sicxeSearch -> isLegal ( temp_wordVector.at ( 1 ) ) )
+        {
+            temp_instruction -> setSymbol ( temp_wordVector.at ( 0 ) ) ;
+            temp_instruction -> setOperand ( temp_wordVector.at ( 1 ) ) ;
+        }
+        else
+        {
+            qDebug () << "[Error] At line :"
+                      << lineNumber
+                      << ":"
+                      << temp_wordVector.at(0)
+                      << "or"
+                      << temp_wordVector.at(1)
+                      << "are neither legal operands." ;
+        }
     }
     else if ( temp_wordVector.size ( ) == 1)
     {
-        temp_instruction -> setOperand ( temp_wordVector.at ( 0 ) ) ;
+        if ( m_sicxeSearch -> isLegal ( temp_wordVector.at( 0 ) ) )
+        {
+            temp_instruction -> setOperand ( temp_wordVector.at ( 0 ) ) ;
+        }
+        else
+        {
+            qDebug () << "[Error] At line :"
+                      << lineNumber
+                      << ":"
+                      << temp_wordVector.at(0)
+                      << "is not a legal operand." ;
+        }
     }
+
     /*
     qDebug() << temp_instruction->symbol ( )
              << temp_instruction->operand ( )
              << temp_instruction->target ( ) ;
     */
-    m_instructionSet -> push_back( temp_instruction ) ;
+
+    instructionHandler ( temp_instruction ) ;
+}
+
+void PassOne::instructionHandler ( Instruction* instruction )
+{
+    SICXESearchResult *result = m_sicxeSearch -> search ( instruction ) ;
+
+    if ( result -> type () == 3 ) // Operand
+    {
+
+    }
+
+    if ( result -> type () == 2 ) // Variable
+    {
+
+    }
+    if ( result -> type () == 1 ) // Assembler Directive
+    {
+
+    }
+    m_instructionSet -> push_back ( instruction ) ;
 }
 
 QString PassOne::formatLine ( QString lineRaw )
@@ -126,6 +188,11 @@ QString PassOne::formatLine ( QString lineRaw )
         }
         temp_lineProcessed.append ( *it_lineRaw ) ;
         wordStart = true ;
+    }
+    QString::iterator it_line = temp_lineProcessed.end() - 1  ;
+    if ( *it_line != QChar(' ') )
+    {
+        temp_lineProcessed.append(' ') ;
     }
     return temp_lineProcessed ;
 }
