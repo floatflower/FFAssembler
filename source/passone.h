@@ -23,6 +23,7 @@ public:
     int variableSize ( Instruction * instruction , int lineNumber ) ;
     void setTableHandler ( TableHandler* tableHandler ) ;
     void assemblerDirectiveAction ( Instruction *instruction ) ;
+    bool noError ( void ) ;
 signals:
 
 public slots:
@@ -32,6 +33,7 @@ private:
     SICXESearch *m_sicxeSearch ;
     TableHandler *m_tableHandler ;
     int m_locationCounter ;
+    bool m_noError ;
 };
 
 #endif // PASSONE_H

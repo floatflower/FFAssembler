@@ -19,7 +19,8 @@ SOURCES += source/main.cpp \
     source/sicxesearchresult.cpp \
     source/globalutility.cpp \
     source/symboltable.cpp \
-    source/tablehandler.cpp
+    source/tablehandler.cpp \
+    source/passtwo.cpp
 
 HEADERS += \
     source/commandhandler.h \
@@ -31,4 +32,5 @@ HEADERS += \
     source/sicxesearchresult.h \
     source/globalutility.h \
     source/symboltable.h \
-    source/tablehandler.h
+    source/tablehandler.h \
+    source/passtwo.h

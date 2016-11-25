@@ -18,6 +18,7 @@ PassOne::PassOne(QObject *parent) : QObject(parent)
     m_sicxeSearch = new SICXESearch ;
     m_sicxeSearch -> buildDatabase( ) ;
     m_locationCounter = 0 ;
+    m_noError = true ;
     // m_sicxeSearch -> sicxeSearchTest ( ) ;
 }
 
@@ -97,6 +98,7 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
                       << ":"
                       << temp_wordVector.at ( 1 )
                       << "is not a legal operand." ;
+            m_noError = false ;
         }
     }
     else if ( temp_wordVector.size ( ) == 2 )
@@ -120,6 +122,7 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
                       << "or"
                       << temp_wordVector.at(1)
                       << "are neither legal operands." ;
+            m_noError = false ;
         }
     }
     else if ( temp_wordVector.size ( ) == 1)
@@ -135,6 +138,7 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
                       << ":"
                       << temp_wordVector.at(0)
                       << "is not a legal operand." ;
+            m_noError = false ;
         }
     }
 
@@ -177,6 +181,7 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
                      << ": Variable :"
                      << instruction -> operand ()
                      << "doesn't have symbol." ;
+            m_noError = false ;
             return ;
         }
         else
@@ -272,4 +277,9 @@ void PassOne::assemblerDirectiveAction ( Instruction *instruction )
         bool ok ;
         m_locationCounter = ( instruction -> target ( ) ).toInt( &ok , 16 ) ;
     }
+}
+
+bool PassOne::noError ( void )
+{
+    return m_noError ;
 }

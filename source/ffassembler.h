@@ -7,6 +7,7 @@
 #include "passone.h"
 #include "instructionset.h"
 #include "tablehandler.h"
+#include "passtwo.h"
 
 class FFAssembler : public QObject
 {
@@ -22,6 +23,7 @@ public slots:
 private:
     CommandHandler *m_commandHandler ;
     PassOne *m_passOne ;
+    PassTwo *m_passTwo ;
     InstructionSet *m_instructionSet ;
     TableHandler *m_tableHandler ;
 };
