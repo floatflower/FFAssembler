@@ -36,6 +36,11 @@ int Instruction::location ( void )
     return m_location ;
 }
 
+int Instruction::lineNumber ( void )
+{
+    return m_lineNumber ;
+}
+
 void Instruction::setSymbol ( QString symbol )
 {
     m_symbol = symbol ;
@@ -59,4 +64,9 @@ void Instruction::setSize ( int size )
 void Instruction::setLocation ( int location )
 {
     m_location = location ;
+}
+
+void Instruction::setLineNumber ( int lineNumber )
+{
+    m_lineNumber = lineNumber ;
 }

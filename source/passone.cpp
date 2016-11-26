@@ -145,7 +145,7 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
              << temp_instruction->operand ( )
              << temp_instruction->target ( ) ;
     */
-
+    temp_instruction -> setLineNumber ( lineNumber ) ;
     instructionHandler ( temp_instruction , lineNumber ) ;
 }
 

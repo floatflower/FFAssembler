@@ -7,6 +7,7 @@
 #include "tablehandler.h"
 #include "sicgencodewithorigin.h"
 #include "sicxesearch.h"
+#include "globalutility.h"
 
 FFAssembler::FFAssembler(QObject *parent) : QObject(parent)
 {
@@ -34,15 +35,11 @@ void FFAssembler::run ( void )
         qDebug () << "Compile terminated.";
         exit ( 0 ) ;
     }
-
-    if ( m_commandHandler -> outputMode () == 0 )
-    {
-        m_passTwo = new SICGenCodeWithOrigin ;
-    }
-
+    m_passTwo = new SICGenCodeWithOrigin ;
     m_passTwo -> setOutputFileName ( m_commandHandler -> outputFileName () ) ;
     m_passTwo -> setInstructionSet ( m_instructionSet ) ;
     m_passTwo -> setTableHandler ( m_tableHandler ) ;
+    m_passTwo -> setSICXESearch ( m_sicxeSearch ) ;
     m_passTwo -> generateObjectCode ( ) ;
     m_passTwo -> writeIntoFile ( ) ;
 

@@ -162,7 +162,6 @@ SICXESearchResult* SICXESearch::search ( Instruction *instruction )
     if ( isOperand ( temp_operand ) )
     {
         result -> setType ( 3 ) ;
-        result -> setOpcode ( m_opcodeTable -> value ( temp_operand ) ) ;
         result -> setSize ( m_opSizeTable -> value ( temp_operand ) ) ;
     }
     else if ( isVariable ( temp_operand ) )
@@ -175,4 +174,9 @@ SICXESearchResult* SICXESearch::search ( Instruction *instruction )
         result -> setType ( 1 ) ;
     }
     return result ;
+}
+
+QBitArray SICXESearch::searchOpcode ( QString operand )
+{
+    return m_opcodeTable -> value ( operand ) ;
 }

@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include "passtwo.h"
+#include "globalutility.h"
 
 PassTwo::PassTwo(QObject *parent) : QObject(parent)
 {
@@ -35,7 +36,34 @@ void PassTwo::setOutputFileName ( QString outputFileName )
     m_outputFileName = outputFileName ;
 }
 
+void PassTwo::setSICXESearch ( SICXESearch *sicxeSearch )
+{
+    m_sicxeSearch = sicxeSearch ;
+}
+
 void PassTwo::generateObjectCode ( void )
 {
 
+}
+
+QString PassTwo::parseString ( QString data )
+{
+    if ( data.at ( 0 ) == 'X' )
+    {
+        int str_length = data.length ( ) ;
+        return data.mid ( 2 , str_length - 3 ) ;
+    }
+    if ( data.at ( 0 ) == 'C' )
+    {
+        QString turn("") ;
+        for ( QString::iterator it_data = data.begin ( ) + 2 ;
+              it_data < data.end ( ) - 1 ;
+              it_data ++ )
+        {
+            int temp_ascii = ( int ) ( *it_data ).toLatin1() ;
+            QString asciiNumber = GlobalUtility::decimalToHeximal ( temp_ascii ) ;
+            turn += asciiNumber ;
+        }
+        return turn ;
+    }
 }

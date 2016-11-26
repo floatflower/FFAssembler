@@ -8,6 +8,7 @@
 #include <QHash>
 #include <QString>
 #include <QSet>
+#include <QBitArray>
 
 #include "sicxesearchresult.h"
 #include "instruction.h"
@@ -25,6 +26,7 @@ public:
     bool isReserveWord ( QString word ) ;
     bool isLegal ( QString word ) ;
     SICXESearchResult* search ( Instruction *instruction ) ;
+    QBitArray searchOpcode ( QString operand ) ;
 signals:
 
 public slots:

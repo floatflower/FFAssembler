@@ -10,10 +10,8 @@ class SICXESearchResult : public QObject
 public:
     explicit SICXESearchResult(QObject *parent = 0);
     void setType ( int type ) ;
-    void setOpcode ( QBitArray opcode ) ;
     void setSize ( int size ) ;
     int type ( void ) ;
-    QBitArray opcode ( void ) ;
     int size ( void ) ;
 signals:
 

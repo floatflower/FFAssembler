@@ -6,6 +6,7 @@
 
 #include "instructionset.h"
 #include "tablehandler.h"
+#include "sicxesearch.h"
 
 class PassTwo : public QObject
 {
@@ -17,12 +18,15 @@ public:
     void writeIntoFile ( void ) ;
     void setOutputFileName ( QString outputFileName ) ;
     virtual void generateObjectCode ( void ) ;
+    void setSICXESearch ( SICXESearch *sicxeSearch ) ;
+    QString parseString ( QString data ) ;
 signals:
 
 public slots:
 protected :
     InstructionSet *m_instructionSet ;
     TableHandler *m_tableHandler ;
+    SICXESearch *m_sicxeSearch ;
     QString m_compileResult ;
     QString m_outputFileName ;
 };

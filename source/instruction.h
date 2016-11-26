@@ -14,11 +14,13 @@ public:
     QString target ( void ) ;
     int size ( void ) ;
     int location ( void ) ;
+    int lineNumber ( void ) ;
     void setSymbol ( QString symbol ) ;
     void setOperand ( QString operand ) ;
     void setTarget ( QString target ) ;
     void setSize ( int size ) ;
     void setLocation ( int location ) ;
+    void setLineNumber ( int lineNumber ) ;
 signals:
 
 public slots:
@@ -29,6 +31,7 @@ private:
     QString m_target ;
     int m_size ;
     int m_location ;
+    int m_lineNumber ;
 };
 
 #endif // INSTRUCTION_H

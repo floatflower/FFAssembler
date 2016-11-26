@@ -2,6 +2,7 @@
 #define GLOBALUTILITY_H
 
 #include <QObject>
+#include <QBitArray>
 
 class GlobalUtility : public QObject
 {
@@ -9,6 +10,8 @@ class GlobalUtility : public QObject
 public:
     explicit GlobalUtility(QObject *parent = 0);
     static int stringSize ( QString string , int lineNumber ) ;
+    static QString decimalToHeximal ( int decimal ) ;
+    static QString opcodeToHeximal ( QBitArray opcode ) ;
 signals:
 
 public slots:
