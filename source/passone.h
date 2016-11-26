@@ -23,6 +23,7 @@ public:
     int variableSize ( Instruction * instruction , int lineNumber ) ;
     void setTableHandler ( TableHandler* tableHandler ) ;
     void assemblerDirectiveAction ( Instruction *instruction ) ;
+    void setSICXESearch ( SICXESearch *sicxeSearch ) ;
     bool noError ( void ) ;
 signals:
 

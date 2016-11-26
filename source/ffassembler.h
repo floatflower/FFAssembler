@@ -8,6 +8,7 @@
 #include "instructionset.h"
 #include "tablehandler.h"
 #include "passtwo.h"
+#include "sicxesearch.h"
 
 class FFAssembler : public QObject
 {
@@ -26,6 +27,8 @@ private:
     PassTwo *m_passTwo ;
     InstructionSet *m_instructionSet ;
     TableHandler *m_tableHandler ;
+    SICXESearch *m_sicxeSearch ;
+
 };
 
 #endif // FFASSEMBLER_H

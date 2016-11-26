@@ -15,8 +15,6 @@
 PassOne::PassOne(QObject *parent) : QObject(parent)
 {
     m_instructionSet = new InstructionSet ;
-    m_sicxeSearch = new SICXESearch ;
-    m_sicxeSearch -> buildDatabase( ) ;
     m_locationCounter = 0 ;
     m_noError = true ;
     // m_sicxeSearch -> sicxeSearchTest ( ) ;
@@ -282,4 +280,9 @@ void PassOne::assemblerDirectiveAction ( Instruction *instruction )
 bool PassOne::noError ( void )
 {
     return m_noError ;
+}
+
+void PassOne::setSICXESearch ( SICXESearch *sicxeSearch )
+{
+    m_sicxeSearch = sicxeSearch ;
 }
