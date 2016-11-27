@@ -18,7 +18,7 @@ void SymbolTable::insertSymbol ( QString symbol , int lineNumber , int location 
     }
     else
     {
-        qDebug () << "[Error] At line"
+        qDebug () << "[Error] At line :"
                   << lineNumber
                   << ": Symbol :"
                   << symbol
