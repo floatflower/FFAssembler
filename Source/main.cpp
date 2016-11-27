@@ -1,6 +1,6 @@
 #include <QCoreApplication>
 
-#include "ffassembler.h"
+#include "Source/ffassembler.h"
 
 int main ( int argc , char **argv )
 {

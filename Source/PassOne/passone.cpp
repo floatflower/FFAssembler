@@ -5,12 +5,12 @@
 #include <QVector>
 
 #include "passone.h"
-#include "instruction.h"
-#include "instructionset.h"
-#include "sicxesearch.h"
-#include "sicxesearchresult.h"
-#include "globalutility.h"
-#include "tablehandler.h"
+#include "Source/Instruction/instruction.h"
+#include "Source/Instruction/instructionset.h"
+#include "Source/SICXESearch/sicxesearch.h"
+#include "Source/SICXESearch/sicxesearchresult.h"
+#include "Source/globalutility.h"
+#include "Source/Table/tablehandler.h"
 
 PassOne::PassOne(QObject *parent) : QObject(parent)
 {

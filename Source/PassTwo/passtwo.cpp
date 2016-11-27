@@ -3,7 +3,7 @@
 #include <QDebug>
 
 #include "passtwo.h"
-#include "globalutility.h"
+#include "Source/globalutility.h"
 
 PassTwo::PassTwo(QObject *parent) : QObject(parent)
 {
@@ -49,14 +49,15 @@ void PassTwo::generateObjectCode ( void )
 QString PassTwo::parseString ( QString data )
 {
     // 將C'STRING'或X'HEX_STRING'解譯為十六位元ASCII或十六位元。
+    QString turn("") ;
     if ( data.at ( 0 ) == 'X' )
     {
         int str_length = data.length ( ) ;
-        return data.mid ( 2 , str_length - 3 ) ;
+        turn = data.mid ( 2 , str_length - 3 ) ;
     }
     if ( data.at ( 0 ) == 'C' )
     {
-        QString turn("") ;
+
         for ( QString::iterator it_data = data.begin ( ) + 2 ;
               it_data < data.end ( ) - 1 ;
               it_data ++ )
@@ -64,7 +65,7 @@ QString PassTwo::parseString ( QString data )
             int temp_ascii = ( int ) ( *it_data ).toLatin1() ;
             QString asciiNumber = GlobalUtility::decimalToHeximal ( temp_ascii ) ;
             turn += asciiNumber ;
-        }
-        return turn ;
+        }   
     }
+    return turn ;
 }

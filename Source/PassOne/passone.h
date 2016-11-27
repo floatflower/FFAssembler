@@ -4,10 +4,10 @@
 #include <QObject>
 #include <QString>
 
-#include "instructionset.h"
-#include "sicxesearch.h"
-#include "tablehandler.h"
-#include "instruction.h"
+#include "Source/Instruction/instructionset.h"
+#include "Source/SICXESearch/sicxesearch.h"
+#include "Source/Table/tablehandler.h"
+#include "Source/Instruction/instruction.h"
 
 /*
  * 第一次Pass的節點。

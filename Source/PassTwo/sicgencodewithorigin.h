@@ -3,7 +3,7 @@
 
 #include <QString>
 
-#include "passtwo.h"
+#include "Source/PassTwo/passtwo.h"
 
 class SICGenCodeWithOrigin : public PassTwo
 {

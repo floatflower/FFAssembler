@@ -1,7 +1,7 @@
 ﻿#include <QVector>
 #include <QDebug>
 
-#include "instructionset.h"
+#include "Source/Instruction/instructionset.h"
 
 InstructionSet::InstructionSet( void )
 {

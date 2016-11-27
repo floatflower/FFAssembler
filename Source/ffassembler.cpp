@@ -1,13 +1,13 @@
 #include <QDebug>
 
-#include "ffassembler.h"
-#include "passone.h"
-#include "passtwo.h"
-#include "commandhandler.h"
-#include "tablehandler.h"
-#include "sicgencodewithorigin.h"
-#include "sicxesearch.h"
-#include "globalutility.h"
+#include "Source/ffassembler.h"
+#include "Source/PassOne/passone.h"
+#include "Source/PassTwo/passtwo.h"
+#include "Source/commandhandler.h"
+#include "Source/Table/tablehandler.h"
+#include "Source/PassTwo/sicgencodewithorigin.h"
+#include "Source/SICXESearch/sicxesearch.h"
+#include "Source/globalutility.h"
 
 FFAssembler::FFAssembler(QObject *parent) : QObject(parent)
 {

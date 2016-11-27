@@ -9,30 +9,32 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += source/main.cpp \
-    source/commandhandler.cpp \
-    source/ffassembler.cpp \
-    source/passone.cpp \
-    source/instruction.cpp \
-    source/instructionset.cpp \
-    source/sicxesearch.cpp \
-    source/sicxesearchresult.cpp \
-    source/globalutility.cpp \
-    source/symboltable.cpp \
-    source/tablehandler.cpp \
-    source/passtwo.cpp \
-    source/sicgencodewithorigin.cpp
+SOURCES += Source/main.cpp \
+    Source/commandhandler.cpp \
+    Source/ffassembler.cpp \
+    Source/PassOne/passone.cpp \
+    Source/Instruction/instruction.cpp \
+    Source/Instruction/instructionset.cpp \
+    Source/SICXESearch/sicxesearch.cpp \
+    Source/SICXESearch/sicxesearchresult.cpp \
+    Source/globalutility.cpp \
+    Source/Table/symboltable.cpp \
+    Source/Table/tablehandler.cpp \
+    Source/PassTwo/passtwo.cpp \
+    Source/PassTwo/sicgencodewithorigin.cpp \
+    Source/PassTwo/sicgencodepure.cpp
 
 HEADERS += \
-    source/commandhandler.h \
-    source/ffassembler.h \
-    source/passone.h \
-    source/instruction.h \
-    source/instructionset.h \
-    source/sicxesearch.h \
-    source/sicxesearchresult.h \
-    source/globalutility.h \
-    source/symboltable.h \
-    source/tablehandler.h \
-    source/passtwo.h \
-    source/sicgencodewithorigin.h
+    Source/commandhandler.h \
+    Source/ffassembler.h \
+    Source/PassOne/passone.h \
+    Source/Instruction/instruction.h \
+    Source/Instruction/instructionset.h \
+    Source/SICXESearch/sicxesearch.h \
+    Source/SICXESearch/sicxesearchresult.h \
+    Source/globalutility.h \
+    Source/Table/symboltable.h \
+    Source/Table/tablehandler.h \
+    Source/PassTwo/passtwo.h \
+    Source/PassTwo/sicgencodewithorigin.h \
+    Source/PassTwo/sicgencodepure.h

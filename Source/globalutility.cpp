@@ -4,7 +4,7 @@
 #include <QChar>
 #include <QBitArray>
 
-#include "globalutility.h"
+#include "Source/globalutility.h"
 
 GlobalUtility::GlobalUtility(QObject *parent) : QObject(parent)
 {

@@ -3,9 +3,9 @@
 #include <QBitArray>
 
 #include "sicgencodewithorigin.h"
-#include "instructionset.h"
-#include "instruction.h"
-#include "globalutility.h"
+#include "Source/Instruction/instructionset.h"
+#include "Source/Instruction/instruction.h"
+#include "Source/globalutility.h"
 
 SICGenCodeWithOrigin::SICGenCodeWithOrigin()
 {

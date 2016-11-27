@@ -4,11 +4,11 @@
 #include <QObject>
 
 #include "commandhandler.h"
-#include "passone.h"
-#include "instructionset.h"
-#include "tablehandler.h"
-#include "passtwo.h"
-#include "sicxesearch.h"
+#include "Source/PassOne/passone.h"
+#include "Source/Instruction/instructionset.h"
+#include "Source/Table/tablehandler.h"
+#include "Source/PassTwo/passtwo.h"
+#include "Source/SICXESearch/sicxesearch.h"
 
 /*
  * 組譯器FFAssembler的主運行程式，程式透過run()函式進行驅動。

@@ -1,4 +1,4 @@
-#include "sicxesearchresult.h"
+#include "Source/SICXESearch/sicxesearchresult.h"
 
 SICXESearchResult::SICXESearchResult(QObject *parent) : QObject(parent)
 {

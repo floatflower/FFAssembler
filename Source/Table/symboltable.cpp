@@ -2,7 +2,7 @@
 #include <QHash>
 #include <QString>
 
-#include "symboltable.h"
+#include "Source/Table/symboltable.h"
 
 SymbolTable::SymbolTable(QObject *parent)
     : QObject(parent)

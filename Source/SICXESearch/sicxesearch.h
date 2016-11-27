@@ -10,8 +10,8 @@
 #include <QSet>
 #include <QBitArray>
 
-#include "sicxesearchresult.h"
-#include "instruction.h"
+#include "Source/SICXESearch/sicxesearchresult.h"
+#include "Source/Instruction/instruction.h"
 
 /*
  * 用於查詢SIC/XE相關指令的資料庫。

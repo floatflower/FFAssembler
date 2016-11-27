@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QString>
 
-#include "instructionset.h"
-#include "tablehandler.h"
-#include "sicxesearch.h"
+#include "Source/Instruction/instructionset.h"
+#include "Source/Table/tablehandler.h"
+#include "Source/SICXESearch/sicxesearch.h"
 
 /*
  * 第二次Pass的處理節點

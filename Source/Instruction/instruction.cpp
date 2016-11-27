@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QString>
 
-#include "instruction.h"
+#include "Source/Instruction/instruction.h"
 
 Instruction::Instruction(QObject *parent)
     : QObject(parent),

@@ -1,6 +1,6 @@
 #include <QDebug>
 
-#include "commandhandler.h"
+#include "Source/commandhandler.h"
 
 CommandHandler::CommandHandler( QObject *parent ): QObject(parent)
 {

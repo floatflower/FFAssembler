@@ -12,8 +12,8 @@
 #include <QString>
 #include <QSet>
 
-#include "sicxesearch.h"
-#include "instruction.h"
+#include "Source/SICXESearch/sicxesearch.h"
+#include "Source/Instruction/instruction.h"
 
 SICXESearch::SICXESearch(QObject *parent) : QObject(parent)
 {

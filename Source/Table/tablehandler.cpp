@@ -1,5 +1,5 @@
-#include "tablehandler.h"
-#include "symboltable.h"
+#include "Source/Table/tablehandler.h"
+#include "Source/Table/symboltable.h"
 
 TableHandler::TableHandler(QObject *parent) : QObject(parent)
 {

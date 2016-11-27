@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "symboltable.h"
+#include "Source/Table/symboltable.h"
 
 /*
  * 所有節點需要存取任何一個Table時都需要透過TableHandler進行存取
