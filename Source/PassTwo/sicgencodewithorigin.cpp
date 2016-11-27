@@ -31,6 +31,10 @@ void SICGenCodeWithOrigin::generateObjectCode ( void )
                 temp_target = m_tableHandler ->
                                   symbolTable () ->
                                   value ( ( *it_instructionSet ) -> leftTarget ( ) ) ;
+                if ( ( *it_instructionSet ) -> rightTarget() == QString("X") )
+                {
+                    temp_target += 32768 ;
+                }
                 temp_targetStr = GlobalUtility::decimalToHeximal ( temp_target ) ;
             }
             else
@@ -47,7 +51,7 @@ void SICGenCodeWithOrigin::generateObjectCode ( void )
             else if ( temp_operand == "BYTE" )
             {
                 objectCode = parseString ( ( *it_instructionSet ) -> target() ) ;
-                objectCode = QString("%1").arg(objectCode,6,QChar('0')) ;
+                // objectCode = QString("%1").arg(objectCode,6,QChar('0')) ;
             }
             else if ( temp_operand == "WORD" )
             {
@@ -56,10 +60,7 @@ void SICGenCodeWithOrigin::generateObjectCode ( void )
                 objectCode = QString("%1").arg(objectCode,6,QChar('0')) ;
             }
         }
-        else if ( m_sicxeSearch -> isReserveWord ( temp_operand ) )
-        {
-            continue ;
-        }
+        else if ( m_sicxeSearch -> isReserveWord ( temp_operand ) ) { }
         QString eachLine = QString("%1   %2   %3   %4   %5  \n")
                 .arg ( GlobalUtility::decimalToHeximal ( ( *it_instructionSet ) -> location() ) , 5 )
                 .arg ( ( *it_instructionSet ) -> symbol() , 8 )
