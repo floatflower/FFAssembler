@@ -1,3 +1,8 @@
+#include <QStringList>
+#include <QChar>
+#include <QDebug>
+#include <QString>
+
 #include "instruction.h"
 
 Instruction::Instruction(QObject *parent)
@@ -24,6 +29,15 @@ QString Instruction::operand ( void )
 QString Instruction::target ( void )
 {
     return m_target ;
+}
+
+QString Instruction::leftTarget ( void )
+{
+    return m_leftTarget ;
+}
+QString Instruction::rightTarget ( void )
+{
+    return m_rightTarget ;
 }
 
 int Instruction::size ( void )
@@ -53,6 +67,16 @@ void Instruction::setOperand ( QString operand )
 
 void Instruction::setTarget ( QString target )
 {
+    QStringList temp_targetList = target.split( QChar( ',' ) , QString::SkipEmptyParts ) ;
+    if ( temp_targetList.size() == 2 )
+    {
+        m_leftTarget = temp_targetList.at ( 0 ) ;
+        m_rightTarget = temp_targetList.at ( 1 ) ;
+    }
+    else if ( temp_targetList.size() == 1 )
+    {
+        m_leftTarget = temp_targetList.at(0) ;
+    }
     m_target = target ;
 }
 

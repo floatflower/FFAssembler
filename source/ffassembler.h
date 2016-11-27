@@ -10,13 +10,18 @@
 #include "passtwo.h"
 #include "sicxesearch.h"
 
+/*
+ * 組譯器FFAssembler的主運行程式，程式透過run()函式進行驅動。
+ */
+
 class FFAssembler : public QObject
 {
     Q_OBJECT
 public:
     explicit FFAssembler(QObject *parent = 0);
-    void run ( void ) ;
-    void setCommand ( int argc , char **argv ) ;
+    void run ( void ) ; // 主程序的驅動。
+    void setCommand ( int argc , char **argv ) ; // 從main()中將系統參數放入FFAssembler。
+                                                 // 再將收到的指令送到commandHandler，然後解譯指令
 signals:
 
 public slots:

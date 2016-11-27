@@ -1,5 +1,5 @@
 COPY 	START	 1000 		
-FIRST 	STL	 RETADR 	
+FIRST 	STL	 RETADR  . Comment Test	
 CLOOP 	JSUB	 RDREC 		 
  	LDA 	 LENGTH 	 
 	COMP	 ZERO 		 

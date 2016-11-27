@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QBitArray>
 
+/*
+ * SICXESearch資料庫查詢結果的物件。
+ */
+
 class SICXESearchResult : public QObject
 {
     Q_OBJECT
@@ -18,7 +22,6 @@ signals:
 public slots:
 private :
     int m_type ;
-    QBitArray m_opcode ;
     int m_size ;
 };
 

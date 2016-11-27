@@ -13,6 +13,12 @@
 #include "sicxesearchresult.h"
 #include "instruction.h"
 
+/*
+ * 用於查詢SIC/XE相關指令的資料庫。
+ * 建立初期會先讀入SICXEData/SICXEDataJsonFile.json
+ * 之後將此檔案建立成許多關聯是容器QHash
+ */
+
 class SICXESearch : public QObject
 {
     Q_OBJECT
@@ -21,12 +27,12 @@ public:
     bool readDatabaseFile ( void ) ;
     bool buildDatabase ( void ) ;
     void sicxeSearchTest ( void ) ;
-    bool isOperand ( QString word ) ;
-    bool isVariable ( QString  word ) ;
-    bool isReserveWord ( QString word ) ;
-    bool isLegal ( QString word ) ;
-    SICXESearchResult* search ( Instruction *instruction ) ;
-    QBitArray searchOpcode ( QString operand ) ;
+    bool isOperand ( QString word ) ; // 是否為operand
+    bool isVariable ( QString  word ) ; // 是否為變數
+    bool isReserveWord ( QString word ) ; // 是否為ReserveWord，這裡的ReserveWord就是AssemblerDirective
+    bool isLegal ( QString word ) ; // 確定是否為合法operand，確定是否為operand或變數或AssemblerDirective
+    SICXESearchResult* search ( Instruction *instruction ) ; // 回傳SICXESearchResult將查詢結果回傳。
+    QBitArray searchOpcode ( QString operand ) ; // 查詢Opcode。
 signals:
 
 public slots:

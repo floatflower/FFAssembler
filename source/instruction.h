@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QString>
 
+/*
+ * 用來儲存每個指令的物件
+ */
+
 class Instruction : public QObject
 {
     Q_OBJECT
@@ -12,6 +16,8 @@ public:
     QString symbol ( void ) ;
     QString operand ( void ) ;
     QString target ( void ) ;
+    QString leftTarget ( void ) ;
+    QString rightTarget ( void ) ;
     int size ( void ) ;
     int location ( void ) ;
     int lineNumber ( void ) ;
@@ -26,12 +32,14 @@ signals:
 public slots:
 
 private:
-    QString m_symbol ;
-    QString m_operand ;
-    QString m_target ;
-    int m_size ;
-    int m_location ;
-    int m_lineNumber ;
+    QString m_symbol ; // 每個指令中的Symbol
+    QString m_operand ; // 指令的動作，如果是變數就是變數的型態，也有可能是Assembler directive的指令。
+    QString m_target ; // 指令的操作對象。
+    QString m_leftTarget ; // 如果字串中有兩個變數以逗點隔開，此為逗點左邊的值。
+    QString m_rightTarget ; // 如果字串中有兩個變數以逗點隔開，此為逗點左邊的值。
+    int m_size ; // 這個指令的大小
+    int m_location ; // 這個指令在記憶體中所佔的位置
+    int m_lineNumber ; // 這個指令在原始碼中所在的行數
 };
 
 #endif // INSTRUCTION_H

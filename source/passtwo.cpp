@@ -48,6 +48,7 @@ void PassTwo::generateObjectCode ( void )
 
 QString PassTwo::parseString ( QString data )
 {
+    // 將C'STRING'或X'HEX_STRING'解譯為十六位元ASCII或十六位元。
     if ( data.at ( 0 ) == 'X' )
     {
         int str_length = data.length ( ) ;

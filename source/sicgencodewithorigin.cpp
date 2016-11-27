@@ -26,18 +26,18 @@ void SICGenCodeWithOrigin::generateObjectCode ( void )
             QString temp_opcodeStr = GlobalUtility::opcodeToHeximal ( temp_opcodeHex ) ;
             int temp_target ;
             QString temp_targetStr ;
-            if ( ( *it_instructionSet ) -> target() != QString("") )
+            if ( ( *it_instructionSet ) -> leftTarget() != QString("") )
             {
                 temp_target = m_tableHandler ->
                                   symbolTable () ->
-                                  value ( ( *it_instructionSet ) -> target ( ) ) ;
+                                  value ( ( *it_instructionSet ) -> leftTarget ( ) ) ;
                 temp_targetStr = GlobalUtility::decimalToHeximal ( temp_target ) ;
             }
             else
             {
                 temp_targetStr = QString("0000") ;
             }
-            // qDebug()<< temp_operand << temp_opcodeStr << temp_targetStr << ( *it_instructionSet ) -> target () ;
+
             objectCode = temp_opcodeStr + temp_targetStr ;
         }
         else if ( m_sicxeSearch -> isVariable ( temp_operand ) )

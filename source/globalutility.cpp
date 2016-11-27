@@ -17,6 +17,7 @@ int GlobalUtility::stringSize ( QString dataString , int lineNumber )
          dataString.at(1) != '\'' &&
          *( dataString.end() -1 ) != '\'' )
     {
+        // 先驗證字串指令格式，如果格式錯誤則會回傳size為0。
         qDebug() << "[Error] At line :"
                  << lineNumber
                  << ":"

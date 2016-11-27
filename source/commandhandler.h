@@ -4,7 +4,12 @@
 #include <QObject>
 #include <QString>
 #include <QHash>
-
+/*
+ * 處理系統指令，可以透過CommandHandler取得必要資訊：
+ * 1. 輸入檔名稱
+ * 2. 輸出檔名稱 ( 如果沒有就會預設為a.txt )
+ * 3. 輸出模式 ( 0是原始碼加上ObjectCode的格式，1是純ObjectCode格式 )
+ */
 class CommandHandler : public QObject
 {
     Q_OBJECT

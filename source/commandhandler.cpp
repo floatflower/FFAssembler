@@ -44,7 +44,7 @@ void CommandHandler::parseCommand ( void )
         }
     }
 
-    // Verifying Command
+    // 確認或修正指令
     if ( m_inputFileName == QString ( "" ) )
     {
         qWarning () << "No Input File." ;
@@ -52,7 +52,7 @@ void CommandHandler::parseCommand ( void )
     }
     if ( m_outputFileName == QString ( "" ) )
     {
-        m_outputFileName = "a.hex" ;
+        m_outputFileName = "a.txt" ;
     }
     if ( m_outputMode != 0 && m_outputMode != 1 )
     {

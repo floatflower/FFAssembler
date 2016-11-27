@@ -4,14 +4,18 @@
 #include <QObject>
 #include <QBitArray>
 
+/*
+ * 組譯器中常用的工具，如十進位轉十六進位或計算字串大小等。
+ */
+
 class GlobalUtility : public QObject
 {
     Q_OBJECT
 public:
     explicit GlobalUtility(QObject *parent = 0);
-    static int stringSize ( QString string , int lineNumber ) ;
-    static QString decimalToHeximal ( int decimal ) ;
-    static QString opcodeToHeximal ( QBitArray opcode ) ;
+    static int stringSize ( QString string , int lineNumber ) ; // 計算字串大小
+    static QString decimalToHeximal ( int decimal ) ; // 十進位轉十六進位
+    static QString opcodeToHeximal ( QBitArray opcode ) ; // 將Opcode換算為十六進位
 signals:
 
 public slots:

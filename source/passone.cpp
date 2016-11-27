@@ -28,7 +28,7 @@ void PassOne::setInputFileName ( QString inputFileName )
 void PassOne::preprocessor ( void )
 {
     QFile inputFile ( m_inputFileName ) ;
-
+    // 確定檔案狀態
     if ( ! inputFile.exists( ) )
     {
         qWarning() << "File:" << m_inputFileName << "is not exist." ;
@@ -40,19 +40,19 @@ void PassOne::preprocessor ( void )
         qWarning() << "File:" << m_inputFileName <<"cannot be opened." ;
         exit ( 0 ) ;
     }
-
+    // 一行一行的讀取檔案
     QTextStream in ( &inputFile ) ;
     int countLine = 0 ;
     while ( ! in.atEnd( ) )
     {
         countLine ++ ;
         QString readFromFileLineByLine = in.readLine ( ) ;
-        QString lineProcessed = formatLine ( readFromFileLineByLine ) ;
+        QString lineProcessed = formatLine ( readFromFileLineByLine ) ; // 格式化原始碼
         if ( lineProcessed == QString( " " ) )
         {
             continue ;
         }
-        packageInstruction ( lineProcessed , countLine ) ;
+        packageInstruction ( lineProcessed , countLine ) ; // 將格式化的原始碼打包成原始物件
     }
 
     inputFile.close( ) ;
@@ -146,18 +146,19 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
              << temp_instruction->target ( ) ;
     */
     temp_instruction -> setLineNumber ( lineNumber ) ;
-    instructionHandler ( temp_instruction , lineNumber ) ;
+    instructionHandler ( temp_instruction , lineNumber ) ; // 將打包好的指令送入Handler補齊詳細資訊。
 }
 
 void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
 {
     SICXESearchResult *result = m_sicxeSearch -> search ( instruction ) ;
 
-    if ( result -> type () == 3 ) // Operand
+    if ( result -> type () == 3 ) // 此指令type為3，即為Operand
     {
         int size = result -> size ( ) ;
         if ( instruction -> symbol ( ) != QString ("") )
         {
+            // 有Symbol時加入將Symbol以及記憶體位置送入symbolTable。
             m_tableHandler -> symbolTable ( ) -> insertSymbol (
                                                                 instruction -> symbol( ) ,
                                                                 lineNumber ,
@@ -166,14 +167,15 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
         }
         instruction -> setLocation ( m_locationCounter ) ;
         instruction -> setSize ( size ) ;
-        m_locationCounter += size ;
+        m_locationCounter += size ; // locationCounter累加器
     }
 
-    if ( result -> type () == 2 ) // Variable
+    if ( result -> type () == 2 ) // 此指令type為2，即為Variable
     {
         int size = variableSize ( instruction , lineNumber ) ;
         if ( instruction -> symbol ( ) == QString ("") )
         {
+            // Variable一定要帶有Symbol，否則會有Undefined的問題
             qDebug() << "[Error] At line"
                      << lineNumber
                      << ": Variable :"
@@ -184,6 +186,7 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
         }
         else
         {
+            // 有Symbol時加入將Symbol以及記憶體位置送入symbolTable。
             m_tableHandler -> symbolTable ( ) -> insertSymbol (
                                                                 instruction -> symbol( ) ,
                                                                 lineNumber ,
@@ -191,11 +194,12 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
                                                                ) ;
             instruction -> setLocation ( m_locationCounter ) ;
             instruction -> setSize ( size ) ;
-            m_locationCounter += size ;
+            m_locationCounter += size ; // locationCounter累加器
         }
     }
     if ( result -> type () == 1 ) // Assembler Directive
     {
+        // 如果是AssemblerDirective的指令，就將instruction送入處理做出相應的動作。
         assemblerDirectiveAction ( instruction ) ;
     }
     m_instructionSet -> push_back ( instruction ) ;
@@ -203,6 +207,8 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
 
 QString PassOne::formatLine ( QString lineRaw )
 {
+    // 將每一行的原始碼格式化為規定格式，並忽略掉註解
+    // FFAssembler支援單行註解或行內註解。
     bool wordStart = false ;
     QString temp_lineProcessed ;
     for ( QString::iterator it_lineRaw = lineRaw.begin( ) ;
@@ -259,6 +265,7 @@ int PassOne::variableSize ( Instruction * instruction , int lineNumber )
     if ( variableType == "BYTE" )
     {
         size = GlobalUtility::stringSize( instruction -> target ( ) , lineNumber ) ;
+        if ( size == 0 ) m_noError = false ;
     }
     return size ;
 }
