@@ -202,7 +202,7 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
         // 如果是AssemblerDirective的指令，就將instruction送入處理做出相應的動作。
         assemblerDirectiveAction ( instruction ) ;
     }
-    m_instructionSet -> push_back ( instruction ) ;
+    m_instructionSet -> insertInstruction ( instruction ) ;
 }
 
 QString PassOne::formatLine ( QString lineRaw )

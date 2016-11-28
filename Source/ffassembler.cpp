@@ -6,6 +6,7 @@
 #include "Source/commandhandler.h"
 #include "Source/Table/tablehandler.h"
 #include "Source/PassTwo/sicgencodewithorigin.h"
+#include "Source/PassTwo/sicgencodepure.h"
 #include "Source/SICXESearch/sicxesearch.h"
 #include "Source/globalutility.h"
 
@@ -30,7 +31,7 @@ void FFAssembler::run ( void )
 
     // Debugging Area
     // m_tableHandler -> symbolTable() -> symbolTableTest () ;
-    // m_instructionSet -> instructionSetTest ( ) ;
+    // sm_instructionSet -> instructionSetTest ( ) ;
 
     if ( ! m_passOne -> noError ( ) )
     {
@@ -43,6 +44,10 @@ void FFAssembler::run ( void )
     if ( m_commandHandler -> outputMode () == 0 )
     {
         m_passTwo = new SICGenCodeWithOrigin ;
+    }
+    else if ( m_commandHandler -> outputMode() == 1 )
+    {
+        m_passTwo = new SICGenCodePure ;
     }
     m_passTwo -> setOutputFileName ( m_commandHandler -> outputFileName () ) ;
     m_passTwo -> setInstructionSet ( m_instructionSet ) ;

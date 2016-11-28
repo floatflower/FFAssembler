@@ -2,7 +2,7 @@
 #include <QTextStream>
 #include <QDebug>
 
-#include "passtwo.h"
+#include "Source/PassTwo/passtwo.h"
 #include "Source/globalutility.h"
 
 PassTwo::PassTwo(QObject *parent) : QObject(parent)

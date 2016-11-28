@@ -14,6 +14,10 @@ class InstructionSet : public QObject , public QVector < Instruction * >
 public:
     explicit InstructionSet( void ) ;
     void instructionSetTest ( void ) ;
+    void insertInstruction ( Instruction* instruction ) ;
+    int totalSize ( void );
+private:
+    int m_totalSize ;
 };
 
 #endif // INSTRUCTIONSET_H

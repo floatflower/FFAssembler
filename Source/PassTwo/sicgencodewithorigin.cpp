@@ -2,7 +2,7 @@
 #include <QString>
 #include <QBitArray>
 
-#include "sicgencodewithorigin.h"
+#include "Source/PassTwo/sicgencodewithorigin.h"
 #include "Source/Instruction/instructionset.h"
 #include "Source/Instruction/instruction.h"
 #include "Source/globalutility.h"

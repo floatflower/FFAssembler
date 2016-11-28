@@ -20,11 +20,22 @@ void InstructionSet::instructionSetTest ( void )
                    .arg ( ( *it_test ) -> operand () , 7 )
                    .arg ( ( *it_test ) -> target () , 8 )
                    .arg ( ( *it_test ) -> leftTarget () , 8 )
-                   .arg ( ( *it_test ) -> rightTarget () , 6 )
+                   .arg ( ( *it_test ) -> rightTarget () , 3 )
                    .arg ( ( *it_test ) -> size () , 6 )
                    .arg ( ( *it_test ) -> location() , 6 )
                    .arg ( ( *it_test ) -> lineNumber() , 5 ) ;
                    ;
-        qDebug() << "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ;
+        qDebug() << "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ;
     }
+}
+
+void InstructionSet::insertInstruction ( Instruction* instruction )
+{
+    m_totalSize += instruction -> size () ;
+    push_back ( instruction ) ;
+}
+
+int InstructionSet::totalSize ( void )
+{
+    return m_totalSize ;
 }
