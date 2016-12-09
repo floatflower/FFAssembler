@@ -94,3 +94,18 @@ void Instruction::setLineNumber ( int lineNumber )
 {
     m_lineNumber = lineNumber ;
 }
+
+QBitArray* Instruction::operandBit ( void )
+{
+    return m_operandBit ;
+}
+
+QBitArray* Instruction::flagBit( void )
+{
+    return m_flagBit ;
+}
+
+QBitArray* Instruction::targetBit ( void )
+{
+    return m_targetBit ;
+}

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QBitArray>
 
 /*
  * 用來儲存每個指令的物件
@@ -12,7 +13,7 @@ class Instruction : public QObject
 {
     Q_OBJECT
 public:
-    explicit Instruction(QObject *parent = 0);
+    Instruction(QObject *parent = 0);
     QString symbol ( void ) ;
     QString operand ( void ) ;
     QString target ( void ) ;
@@ -27,6 +28,9 @@ public:
     void setSize ( int size ) ;
     void setLocation ( int location ) ;
     void setLineNumber ( int lineNumber ) ;
+    QBitArray* operandBit ( void ) ;
+    QBitArray* flagBit( void ) ;
+    QBitArray* targetBit ( void ) ;
 signals:
 
 public slots:
@@ -40,6 +44,9 @@ private:
     int m_size ; // 這個指令的大小
     int m_location ; // 這個指令在記憶體中所佔的位置
     int m_lineNumber ; // 這個指令在原始碼中所在的行數
+    QBitArray *m_operandBit ;
+    QBitArray *m_flagBit ;
+    QBitArray *m_targetBit ;
 };
 
 #endif // INSTRUCTION_H

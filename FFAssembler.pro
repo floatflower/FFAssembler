@@ -22,7 +22,12 @@ SOURCES += Source/main.cpp \
     Source/Table/tablehandler.cpp \
     Source/PassTwo/passtwo.cpp \
     Source/PassTwo/sicgencodewithorigin.cpp \
-    Source/PassTwo/sicgencodepure.cpp
+    Source/PassTwo/sicgencodepure.cpp \
+    Source/Table/symboltablewithbit.cpp \
+    Source/Instruction/instructionformat1.cpp \
+    Source/Instruction/instructionformat2.cpp \
+    Source/Instruction/instructionformat4.cpp \
+    Source/Instruction/instructionformat3.cpp
 
 HEADERS += \
     Source/commandhandler.h \
@@ -37,4 +42,9 @@ HEADERS += \
     Source/Table/tablehandler.h \
     Source/PassTwo/passtwo.h \
     Source/PassTwo/sicgencodewithorigin.h \
-    Source/PassTwo/sicgencodepure.h
+    Source/PassTwo/sicgencodepure.h \
+    Source/Table/symboltablewithbit.h \
+    Source/Instruction/instructionformat1.h \
+    Source/Instruction/instructionformat2.h \
+    Source/Instruction/instructionformat4.h \
+    Source/Instruction/instructionformat3.h
