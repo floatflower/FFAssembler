@@ -23,7 +23,7 @@ void SICGenCodePure::generateObjectCode ( void )
           it_instructionSet ++ )
     {
         QString tmp_operand = ( *it_instructionSet ) -> operand () ;
-        if ( ( tmp_lineSize + ( *it_instructionSet ) -> size () > 30 ) || forceBreak || tmp_operand == "END" )
+        if ( ( tmp_lineSize + ( *it_instructionSet ) -> size () > 30 ) || forceBreak || ( tmp_operand == "END" && tmp_lineSize != 0))
         {
             if ( tmp_lineSize != 0 )
             {

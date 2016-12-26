@@ -100,12 +100,22 @@ QBitArray* Instruction::operandBit ( void )
     return m_operandBit ;
 }
 
-QBitArray* Instruction::flagBit( void )
+QBitArray* Instruction::targetBit ( void )
+{
+    return m_targetBit ;
+}
+
+QBitArray* Instruction::flagBit ( void )
 {
     return m_flagBit ;
 }
 
-QBitArray* Instruction::targetBit ( void )
+void Instruction::setOperand( QBitArray* operand )
 {
-    return m_targetBit ;
+    m_operandBit = operand ;
+}
+
+void Instruction::setTarget( QBitArray* target )
+{
+    m_targetBit = target ;
 }

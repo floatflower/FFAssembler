@@ -16,7 +16,10 @@ public:
     Instruction(QObject *parent = 0);
     QString symbol ( void ) ;
     QString operand ( void ) ;
+    QBitArray* operandBit ( void ) ;
     QString target ( void ) ;
+    QBitArray* targetBit ( void ) ;
+    QBitArray* flagBit ( void ) ;
     QString leftTarget ( void ) ;
     QString rightTarget ( void ) ;
     int size ( void ) ;
@@ -24,18 +27,17 @@ public:
     int lineNumber ( void ) ;
     void setSymbol ( QString symbol ) ;
     void setOperand ( QString operand ) ;
+    void setOperand ( QBitArray* operand ) ;
     void setTarget ( QString target ) ;
+    void setTarget ( QBitArray* target ) ;
     void setSize ( int size ) ;
     void setLocation ( int location ) ;
     void setLineNumber ( int lineNumber ) ;
-    QBitArray* operandBit ( void ) ;
-    QBitArray* flagBit( void ) ;
-    QBitArray* targetBit ( void ) ;
 signals:
 
 public slots:
 
-private:
+protected:
     QString m_symbol ; // 每個指令中的Symbol
     QString m_operand ; // 指令的動作，如果是變數就是變數的型態，也有可能是Assembler directive的指令。
     QString m_target ; // 指令的操作對象。

@@ -1,4 +1,4 @@
-COPY 	START	 1000 		
+COPY 	START	 1000		
 FIRST 	STL	 RETADR  . Comment Test	
 CLOOP 	JSUB	 RDREC 		 
  	LDA 	 LENGTH 	 
@@ -28,7 +28,7 @@ RLOOP 	TD  	 INPUT
 	JEQ 	 RLOOP 		 
 	RD 	 INPUT 		 
 	COMP 	 ZERO 		 
-	JEQ  	 EXIT 		 
+	JEQC  	 EXIT 		 
 	STCH 	 BUFFER,X        
 	TIX 	 MAXLEN 	 
 	JLT 	 RLOOP 		 
