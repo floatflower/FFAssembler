@@ -33,6 +33,8 @@ public:
     bool isLegal ( QString word ) ; // 確定是否為合法operand，確定是否為operand或變數或AssemblerDirective
     SICXESearchResult* search ( Instruction *instruction ) ; // 回傳SICXESearchResult將查詢結果回傳。
     QBitArray searchOpcode ( QString operand ) ; // 查詢Opcode。
+    int operandSize ( QString operand ) ;
+    int variableSize ( QString variable ) ;
 signals:
 
 public slots:

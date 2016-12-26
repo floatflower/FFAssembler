@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QVector>
 
 #include "Source/Instruction/instructionset.h"
 #include "Source/SICXESearch/sicxesearch.h"
@@ -30,7 +31,7 @@ public:
     explicit PassOne ( QObject *parent = 0 ) ;
     void setInputFileName ( QString inputFileName ) ;
     void preprocessor ( void ) ;
-    void packageInstruction ( QString lineProcessed , int lineNumber ) ;
+    void package ( QString lineProcessed , int lineNumber ) ;
     void instructionHandler ( Instruction* instruction , int lineNumber ) ;
     QString formatLine ( QString lineRaw ) ;
     InstructionSet* instructionSet ( void ) ;
@@ -39,8 +40,10 @@ public:
     void assemblerDirectiveAction ( Instruction *instruction ) ;
     void setSICXESearch ( SICXESearch *sicxeSearch ) ;
     bool noError ( void ) ;
+    Instruction* instructionFactory ( int type ) ;
+    Instruction* packageVariable ( QVector<QString> tokendized ) ;
+    Instruction* packageAssemblyDirective ( QVector<QString> tokenized ) ;
 signals:
-
 public slots:
 private:
     QString m_inputFileName ;

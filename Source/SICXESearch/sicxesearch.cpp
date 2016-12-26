@@ -180,3 +180,13 @@ QBitArray SICXESearch::searchOpcode ( QString operand )
 {
     return m_opcodeTable -> value ( operand ) ;
 }
+
+int SICXESearch::operandSize ( QString operand )
+{
+    return m_opSizeTable -> value ( operand ) ;
+}
+
+int SICXESearch::variableSize ( QString variable )
+{
+    return m_variableSizeTable -> value ( variable ) ;
+}

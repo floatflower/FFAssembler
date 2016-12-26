@@ -28,7 +28,7 @@ RLOOP 	TD  	 INPUT
 	JEQ 	 RLOOP 		 
 	RD 	 INPUT 		 
 	COMP 	 ZERO 		 
-	JEQC  	 EXIT 		 
+	JEQ  	 EXIT 		 
 	STCH 	 BUFFER,X        
 	TIX 	 MAXLEN 	 
 	JLT 	 RLOOP 		 

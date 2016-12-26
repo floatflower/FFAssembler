@@ -119,3 +119,13 @@ void Instruction::setTarget( QBitArray* target )
 {
     m_targetBit = target ;
 }
+
+void Instruction::setFlag( QBitArray* flag )
+{
+    m_flagBit = flag ;
+}
+
+void Instruction::setSingleFlag ( int position , bool bit )
+{
+    m_flagBit -> setBit( position , bit ) ;
+}

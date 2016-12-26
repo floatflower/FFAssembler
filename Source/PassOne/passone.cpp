@@ -11,6 +11,12 @@
 #include "Source/SICXESearch/sicxesearchresult.h"
 #include "Source/globalutility.h"
 #include "Source/Table/tablehandler.h"
+#include "Source/Instruction/instructionformat1.h"
+#include "Source/Instruction/instructionformat2.h"
+#include "Source/Instruction/instructionformat3.h"
+#include "Source/Instruction/instructionformat4.h"
+#include "Source/Instruction/variable.h"
+#include "Source/Instruction/assemblydirective.h"
 
 PassOne::PassOne(QObject *parent) : QObject(parent)
 {
@@ -52,13 +58,13 @@ void PassOne::preprocessor ( void )
         {
             continue ;
         }
-        packageInstruction ( lineProcessed , countLine ) ; // 將格式化的原始碼打包成原始物件
+        package ( lineProcessed , countLine ) ; // 將格式化的原始碼打包成原始物件
     }
 
     inputFile.close( ) ;
 }
 
-void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
+void PassOne::package ( QString lineProcessed , int lineNumber )
 {
     QString temp_word ;
     QVector<QString> temp_wordVector ;
@@ -74,29 +80,34 @@ void PassOne::packageInstruction ( QString lineProcessed , int lineNumber )
         }
         temp_word.append ( *it_lineProcessed ) ;
     }
-    /*for ( QVector<QString>::iterator it_wordVector = temp_wordVector.begin( ) ;
-          it_wordVector < temp_wordVector.end( ) ;
-          it_wordVector ++ )
-    {
-        qDebug()<<*it_wordVector ;
-    }*/
     Instruction *temp_instruction = new Instruction ;
+
+    // ======= 以上是讀檔和切Token不要動到 ========
+
+    Instruction *tmp_instruction ;
+
     if ( temp_wordVector.size ( ) == 3 )
     {
-        if ( m_sicxeSearch -> isLegal ( temp_wordVector.at( 1 ) ) )
+        QString tmp_secondKeyword = temp_wordVector.at ( 1 ) ;
+        if ( ! m_sicxeSearch -> isLegal ( tmp_secondKeyword ) )
         {
-            temp_instruction -> setSymbol ( temp_wordVector.at ( 0 ) ) ;
-            temp_instruction -> setOperand ( temp_wordVector.at ( 1 ) ) ;
-            temp_instruction -> setTarget ( temp_wordVector.at ( 2 ) ) ;
+        // throw Exception
         }
-        else
+
+        // ======= Checking Type =======
+
+        if ( m_sicxeSearch -> isOperand ( tmp_secondKeyword ) )
         {
-            qDebug () << "[Error] At line :"
-                      << lineNumber
-                      << ":"
-                      << temp_wordVector.at ( 1 )
-                      << "is not a legal operand." ;
-            m_noError = false ;
+            int format = m_sicxeSearch -> operandSize ( tmp_secondKeyword ) ;
+            tmp_instruction = instructionFactory ( format ) ;
+        }
+        else if ( m_sicxeSearch -> isVariable ( tmp_secondKeyword ) )
+        {
+
+        }
+        else if ( m_sicxeSearch -> isReserveWord ( tmp_secondKeyword ) )
+        {
+
         }
     }
     else if ( temp_wordVector.size ( ) == 2 )
@@ -292,4 +303,36 @@ bool PassOne::noError ( void )
 void PassOne::setSICXESearch ( SICXESearch *sicxeSearch )
 {
     m_sicxeSearch = sicxeSearch ;
+}
+
+Instruction* PassOne::instructionFactory ( int type )
+{
+    Instruction* tmp_instruction ;
+    switch ( type )
+    {
+        case 1 :
+            tmp_instruction = new InstructionFormat1 ;
+            break ;
+        case 2 :
+            tmp_instruction = new InstructionFormat2 ;
+            break ;
+        case 3 :
+            tmp_instruction = new InstructionFormat3 ;
+            break ;
+        case 4 :
+            tmp_instruction = new InstructionFormat4 ;
+            break ;
+    }
+
+    return tmp_instruction ;
+}
+
+Instruction* PassOne::packageVariable ( QVector<QString> tokendized )
+{
+
+}
+
+Instruction* PassOne::packageAssemblyDirective ( QVector<QString> tokenized )
+{
+
 }

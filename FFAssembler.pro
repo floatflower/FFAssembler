@@ -27,7 +27,9 @@ SOURCES += Source/main.cpp \
     Source/Instruction/instructionformat1.cpp \
     Source/Instruction/instructionformat2.cpp \
     Source/Instruction/instructionformat4.cpp \
-    Source/Instruction/instructionformat3.cpp
+    Source/Instruction/instructionformat3.cpp \
+    Source/Instruction/variable.cpp \
+    Source/Instruction/assemblydirective.cpp
 
 HEADERS += \
     Source/commandhandler.h \
@@ -47,4 +49,6 @@ HEADERS += \
     Source/Instruction/instructionformat1.h \
     Source/Instruction/instructionformat2.h \
     Source/Instruction/instructionformat4.h \
-    Source/Instruction/instructionformat3.h
+    Source/Instruction/instructionformat3.h \
+    Source/Instruction/variable.h \
+    Source/Instruction/assemblydirective.h
