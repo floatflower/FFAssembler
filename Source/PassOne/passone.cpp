@@ -80,7 +80,6 @@ void PassOne::package ( QString lineProcessed , int lineNumber )
         }
         temp_word.append ( *it_lineProcessed ) ;
     }
-    Instruction *temp_instruction = new Instruction ;
 
     // ======= 以上是讀檔和切Token不要動到 ========
 
@@ -138,6 +137,9 @@ void PassOne::package ( QString lineProcessed , int lineNumber )
         {
             int format = m_sicxeSearch -> operandSize ( tmp_legalKeyword ) ;
             tmp_instruction = instructionFactory(format) ;
+            m_locationCounter += format ;
+            tmp_instruction -> setLocation ( m_locationCounter ) ;
+            tmp_instruction -> setSize ( format ) ;
         }
         else if ( m_sicxeSearch -> isVariable ( tmp_legalKeyword ) )
         {
