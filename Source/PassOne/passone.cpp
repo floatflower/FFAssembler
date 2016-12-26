@@ -103,61 +103,89 @@ void PassOne::package ( QString lineProcessed , int lineNumber )
         }
         else if ( m_sicxeSearch -> isVariable ( tmp_secondKeyword ) )
         {
-
+            tmp_instruction = variableFactory ( ) ;
         }
         else if ( m_sicxeSearch -> isReserveWord ( tmp_secondKeyword ) )
         {
-
+            tmp_instruction = assemblyDirectiveFactory ( ) ;
         }
+
+        tmp_instruction -> setSymbol ( temp_wordVector.at( 0 ) ) ;
+        tmp_instruction -> setOperand ( temp_wordVector.at( 1 ) ) ;
+        tmp_instruction -> setTarget ( temp_wordVector.at(2) ) ;
     }
     else if ( temp_wordVector.size ( ) == 2 )
     {
+        QString tmp_legalKeyword ;
+        int tmp_position ;
         if ( m_sicxeSearch -> isLegal ( temp_wordVector.at( 0 ) ) )
         {
-            temp_instruction -> setOperand ( temp_wordVector.at ( 0 ) ) ;
-            temp_instruction -> setTarget ( temp_wordVector.at ( 1 ) ) ;
+            tmp_legalKeyword = temp_wordVector.at( 0 ) ;
+            tmp_position = 0 ;
         }
         else if ( m_sicxeSearch -> isLegal ( temp_wordVector.at ( 1 ) ) )
         {
-            temp_instruction -> setSymbol ( temp_wordVector.at ( 0 ) ) ;
-            temp_instruction -> setOperand ( temp_wordVector.at ( 1 ) ) ;
+            tmp_legalKeyword = temp_wordVector.at( 1 ) ;
+            tmp_position = 1 ;
         }
         else
         {
-            qDebug () << "[Error] At line :"
-                      << lineNumber
-                      << ":"
-                      << temp_wordVector.at(0)
-                      << "or"
-                      << temp_wordVector.at(1)
-                      << "are neither legal operands." ;
-            m_noError = false ;
+            // Throw Exception
         }
-    }
-    else if ( temp_wordVector.size ( ) == 1)
-    {
-        if ( m_sicxeSearch -> isLegal ( temp_wordVector.at( 0 ) ) )
-        {
-            temp_instruction -> setOperand ( temp_wordVector.at ( 0 ) ) ;
-        }
-        else
-        {
-            qDebug () << "[Error] At line :"
-                      << lineNumber
-                      << ":"
-                      << temp_wordVector.at(0)
-                      << "is not a legal operand." ;
-            m_noError = false ;
-        }
-    }
 
-    /*
-    qDebug() << temp_instruction->symbol ( )
-             << temp_instruction->operand ( )
-             << temp_instruction->target ( ) ;
-    */
-    temp_instruction -> setLineNumber ( lineNumber ) ;
-    instructionHandler ( temp_instruction , lineNumber ) ; // 將打包好的指令送入Handler補齊詳細資訊。
+        // ======= Check Type =======
+        if ( m_sicxeSearch -> isOperand ( tmp_legalKeyword ) )
+        {
+            int format = m_sicxeSearch -> operandSize ( tmp_legalKeyword ) ;
+            tmp_instruction = instructionFactory(format) ;
+        }
+        else if ( m_sicxeSearch -> isVariable ( tmp_legalKeyword ) )
+        {
+            tmp_instruction = variableFactory ( ) ;
+        }
+        else if ( m_sicxeSearch -> isReserveWord ( tmp_legalKeyword ) )
+        {
+            tmp_instruction = assemblyDirectiveFactory ( ) ;
+        }
+
+        if ( tmp_position == 0 )
+        {
+            tmp_instruction -> setOperand ( temp_wordVector.at(0) ) ;
+            tmp_instruction -> setTarget ( temp_wordVector.at(1) ) ;
+        }
+        else if ( tmp_position == 1 )
+        {
+            tmp_instruction -> setSymbol ( temp_wordVector.at(0) ) ;
+            tmp_instruction -> setOperand ( temp_wordVector.at(1) ) ;
+        }
+    }
+    else if ( temp_wordVector.size ( ) == 1 )
+    {
+        if ( ! m_sicxeSearch -> isLegal ( temp_wordVector.at( 0 ) ) )
+        {
+            // throw Exception
+        }
+
+        // ======= check type =======
+
+        if ( m_sicxeSearch -> isOperand ( temp_wordVector.at( 0 ) ) )
+        {
+            int format = m_sicxeSearch -> operandSize ( temp_wordVector.at(0) ) ;
+            tmp_instruction = instructionFactory( format ) ;
+        }
+        else if ( m_sicxeSearch -> isVariable ( temp_wordVector.at( 0 ) ) )
+        {
+            // throw Exception
+        }
+        else if ( m_sicxeSearch -> isReserveWord ( temp_wordVector.at(0) ) )
+        {
+            tmp_instruction = assemblyDirectiveFactory ( ) ;
+        }
+
+        tmp_instruction -> setOperand ( temp_wordVector.at(0) ) ;
+    }
+    tmp_instruction -> setLineNumber ( lineNumber ) ;
+    instructionHandler ( tmp_instruction , lineNumber ) ; // 將打包好的指令送入Handler補齊詳細資訊。
 }
 
 void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
@@ -327,12 +355,12 @@ Instruction* PassOne::instructionFactory ( int type )
     return tmp_instruction ;
 }
 
-Instruction* PassOne::packageVariable ( QVector<QString> tokendized )
+Instruction* PassOne::variableFactory ( )
 {
-
+    return new Variable ;
 }
 
-Instruction* PassOne::packageAssemblyDirective ( QVector<QString> tokenized )
+Instruction* PassOne::assemblyDirectiveFactory (  )
 {
-
+    return new AssemblyDirective ;
 }

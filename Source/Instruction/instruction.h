@@ -26,9 +26,9 @@ public:
     int location ( void ) ;
     int lineNumber ( void ) ;
     void setSymbol ( QString symbol ) ;
-    void setOperand ( QString operand ) ;
+    virtual void setOperand ( QString operand ) ;
     virtual void setOperand ( QBitArray* operand ) ;
-    void setTarget ( QString target ) ;
+    virtual void setTarget ( QString target ) ;
     virtual void setTarget ( QBitArray* target ) ;
     void setFlag( QBitArray* flag ) ;
     void setSingleFlag ( int positition , bool bit ) ;

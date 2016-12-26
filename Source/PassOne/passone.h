@@ -41,8 +41,8 @@ public:
     void setSICXESearch ( SICXESearch *sicxeSearch ) ;
     bool noError ( void ) ;
     Instruction* instructionFactory ( int type ) ;
-    Instruction* packageVariable ( QVector<QString> tokendized ) ;
-    Instruction* packageAssemblyDirective ( QVector<QString> tokenized ) ;
+    Instruction* variableFactory ( ) ;
+    Instruction* assemblyDirectiveFactory ( ) ;
 signals:
 public slots:
 private:
