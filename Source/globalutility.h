@@ -16,6 +16,8 @@ public:
     static int stringSize ( QString string , int lineNumber ) ; // 計算字串大小
     static QString decimalToHeximal ( int decimal ) ; // 十進位轉十六進位
     static QString opcodeToHeximal ( QBitArray opcode ) ; // 將Opcode換算為十六進位
+    static QBitArray* decimalToBinary ( int decimal ) ; // 十進位轉二進位
+
 signals:
 
 public slots:

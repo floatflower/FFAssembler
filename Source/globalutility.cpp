@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QChar>
 #include <QBitArray>
+#include <QVector>
 
 #include "Source/globalutility.h"
 
@@ -70,4 +71,25 @@ QString GlobalUtility::opcodeToHeximal ( QBitArray opcode )
 
     }
     return hex_opcode ;
+}
+
+QBitArray* GlobalUtility::decimalToBinary ( int decimal )
+{
+    QVector<int> tmp_binaryVector ;
+    while ( decimal != 0 )
+    {
+        int remainder = decimal % 2 ;
+        tmp_binaryVector.push_back(remainder) ;
+        decimal /= 2 ;
+    }
+    int digitLength = tmp_binaryVector.size() ;
+    QBitArray *binary = new QBitArray(digitLength) ;
+    int i = 0 ;
+    for ( QVector<int>::reverse_iterator rit_binaryVector = tmp_binaryVector.rbegin() ;
+          rit_binaryVector != tmp_binaryVector.rend() ;
+          rit_binaryVector ++ , i ++ )
+    {
+       binary->setBit( i , *rit_binaryVector ) ;
+    }
+    return binary ;
 }

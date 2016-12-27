@@ -29,7 +29,9 @@ SOURCES += Source/main.cpp \
     Source/Instruction/instructionformat4.cpp \
     Source/Instruction/instructionformat3.cpp \
     Source/Instruction/variable.cpp \
-    Source/Instruction/assemblydirective.cpp
+    Source/Instruction/assemblydirective.cpp \
+    Source/Exception/exception.cpp \
+    Source/Exception/syntaxexception.cpp
 
 HEADERS += \
     Source/commandhandler.h \
@@ -51,4 +53,6 @@ HEADERS += \
     Source/Instruction/instructionformat4.h \
     Source/Instruction/instructionformat3.h \
     Source/Instruction/variable.h \
-    Source/Instruction/assemblydirective.h
+    Source/Instruction/assemblydirective.h \
+    Source/Exception/exception.h \
+    Source/Exception/syntaxexception.h
