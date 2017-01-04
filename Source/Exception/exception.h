@@ -8,7 +8,7 @@ class Exception : public QObject
     Q_OBJECT
 public:
     explicit Exception(QObject *parent = 0);
-
+    virtual void what( void ) ;
 signals:
 
 public slots:

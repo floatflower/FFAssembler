@@ -31,7 +31,9 @@ SOURCES += Source/main.cpp \
     Source/Instruction/variable.cpp \
     Source/Instruction/assemblydirective.cpp \
     Source/Exception/exception.cpp \
-    Source/Exception/syntaxexception.cpp
+    Source/Exception/syntaxexception.cpp \
+    Source/PassTwo/sicxegencodewithorigin.cpp \
+    Source/Table/registertable.cpp
 
 HEADERS += \
     Source/commandhandler.h \
@@ -55,4 +57,6 @@ HEADERS += \
     Source/Instruction/variable.h \
     Source/Instruction/assemblydirective.h \
     Source/Exception/exception.h \
-    Source/Exception/syntaxexception.h
+    Source/Exception/syntaxexception.h \
+    Source/PassTwo/sicxegencodewithorigin.h \
+    Source/Table/registertable.h

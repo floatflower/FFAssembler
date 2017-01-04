@@ -137,7 +137,6 @@ void PassOne::package ( QString lineProcessed , int lineNumber )
         {
             int format = m_sicxeSearch -> operandSize ( tmp_legalKeyword ) ;
             tmp_instruction = instructionFactory(format) ;
-            m_locationCounter += format ;
             tmp_instruction -> setLocation ( m_locationCounter ) ;
             tmp_instruction -> setSize ( format ) ;
         }

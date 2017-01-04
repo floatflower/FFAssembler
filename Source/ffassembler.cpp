@@ -31,7 +31,7 @@ void FFAssembler::run ( void )
 
     // Debugging Area
     // m_tableHandler -> symbolTable() -> symbolTableTest () ;
-    // sm_instructionSet -> instructionSetTest ( ) ;
+    // m_instructionSet -> instructionSetTest ( ) ;
 
     if ( ! m_passOne -> noError ( ) )
     {
