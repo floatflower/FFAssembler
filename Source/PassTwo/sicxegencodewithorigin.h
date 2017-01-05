@@ -5,13 +5,21 @@
 #include <QChar>
 
 #include "Source/PassTwo/passtwo.h"
+#include "Source/Instruction/instruction.h"
 
 class SICXEGenCodeWithOrigin : public PassTwo
 {
     Q_OBJECT
 public:
-    explicit SICXEGenCodeWithOrigin(QObject *parent = 0);
+    explicit SICXEGenCodeWithOrigin( );
     virtual void generateObjectCode ( void ) ;
+    void assemblerDirectiveAction ( Instruction* instruction ) ;
+    bool immediateAddressingCheck ( QString target ) ;
+    bool indirectAddressingCheck ( QString target ) ;
+    QString format1Handler ( Instruction* instruction ) ;
+    QString format2Handler ( Instruction* instruction ) ;
+    QString format3Handler ( Instruction* instruction ) ;
+    QString format4Handler ( Instruction* instruction ) ;
 signals:
 
 public slots:

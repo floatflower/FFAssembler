@@ -3,6 +3,7 @@
 #include <QString>
 
 #include "Source/Table/symboltable.h"
+#include "Source/globalutility.h"
 
 SymbolTable::SymbolTable(QObject *parent)
     : QObject(parent)
@@ -38,4 +39,11 @@ void SymbolTable::symbolTableTest ( void )
                      .arg( it_symbolTable.value() , 6 ) ;
         qDebug () << "------------------------------------------" ;
     }
+}
+
+QBitArray* SymbolTable::bitValue ( QString key )
+{
+    int tmp_value = value( key ) ;
+
+    return GlobalUtility::decimalToBinary( tmp_value ) ;
 }

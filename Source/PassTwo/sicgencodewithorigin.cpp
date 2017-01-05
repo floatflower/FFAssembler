@@ -51,7 +51,6 @@ void SICGenCodeWithOrigin::generateObjectCode ( void )
             else if ( temp_operand == "BYTE" )
             {
                 objectCode = parseString ( ( *it_instructionSet ) -> target() ) ;
-                // objectCode = QString("%1").arg(objectCode,6,QChar('0')) ;
             }
             else if ( temp_operand == "WORD" )
             {

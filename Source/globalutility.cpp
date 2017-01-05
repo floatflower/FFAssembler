@@ -5,6 +5,8 @@
 #include <QBitArray>
 #include <QVector>
 
+#include <algorithm>
+
 #include "Source/globalutility.h"
 
 GlobalUtility::GlobalUtility(QObject *parent) : QObject(parent)
@@ -32,22 +34,67 @@ int GlobalUtility::stringSize ( QString dataString , int lineNumber )
 QString GlobalUtility::decimalToHeximal ( int decimal )
 {
     QString temp_heximal("") ;
-    temp_heximal.clear() ;
-    while ( true )
+    if ( decimal >= 0 )
     {
-        int temp_remainder = decimal % 16 ;
-        decimal /= 16 ;
-        switch ( temp_remainder )
+        while ( true )
         {
-            case 15 : temp_heximal.prepend('F') ; break ;
-            case 14 : temp_heximal.prepend('E') ; break ;
-            case 13 : temp_heximal.prepend('D') ; break ;
-            case 12 : temp_heximal.prepend('C') ; break ;
-            case 11 : temp_heximal.prepend('B') ; break ;
-            case 10 : temp_heximal.prepend('A') ; break ;
-            default : temp_heximal.prepend( QChar ( temp_remainder + 48 ) ) ;
+            int temp_remainder = decimal % 16 ;
+            decimal /= 16 ;
+            switch ( temp_remainder )
+            {
+                case 15 : temp_heximal.prepend('F') ; break ;
+                case 14 : temp_heximal.prepend('E') ; break ;
+                case 13 : temp_heximal.prepend('D') ; break ;
+                case 12 : temp_heximal.prepend('C') ; break ;
+                case 11 : temp_heximal.prepend('B') ; break ;
+                case 10 : temp_heximal.prepend('A') ; break ;
+                default : temp_heximal.prepend( QChar ( temp_remainder + 48 ) ) ;
+            }
+            if ( decimal == 0 ) break ;
         }
-        if ( decimal == 0 ) break ;
+    }
+    else
+    {
+        int tmp_posDecimal = decimal * (-1) ;
+        QBitArray* tmp_posBinary = decimalToBinary(tmp_posDecimal) ;
+
+        int tmp_posBinarySize = tmp_posBinary->size() ;
+
+        int adjustSize = 12 ;
+
+        qDebug()<<tmp_posBinarySize<<"/"<<adjustSize;
+
+        QBitArray* tmp_adjustBinary = new QBitArray(adjustSize,0) ;
+
+        int i = tmp_posBinarySize - 1 ;
+        int j = adjustSize - 1 ;
+
+        for ( ; i >= 0 ; i-- , j -- )
+        {
+            (*tmp_adjustBinary)[j] = ( *tmp_posBinary )[i] ;
+        }
+
+        qDebug()<<*tmp_posBinary<<"/"<<*tmp_adjustBinary;
+
+        tmp_posBinary = tmp_adjustBinary ;
+
+        for( int i = 0 ; i < tmp_posBinary->size() ; i ++ )
+        {
+            (*tmp_posBinary)[i] = !(*tmp_posBinary)[i];
+        }
+        for ( int i = tmp_posBinary->size() -1 ; i >=0 ; i -- )
+        {
+            if ( (*tmp_posBinary)[i] == 0 )
+            {
+                (*tmp_posBinary)[i] = 1 ;
+                break ;
+            }
+            else
+            {
+                (*tmp_posBinary)[i] = 0 ;
+            }
+        }
+        temp_heximal = binaryToHeximal(*tmp_posBinary) ;
     }
     return temp_heximal ;
 }
@@ -92,4 +139,32 @@ QBitArray* GlobalUtility::decimalToBinary ( int decimal )
        binary->setBit( i , *rit_binaryVector ) ;
     }
     return binary ;
+}
+
+QString GlobalUtility::binaryToHeximal ( QBitArray binary )
+{
+    int tmp_instructionSize = binary.size() ;
+    int tmp_instructionSizeHalfByte = tmp_instructionSize / 4 ;
+    QString tmp_heximal( tmp_instructionSizeHalfByte ) ;
+
+    for ( int i = 0 ; i < tmp_instructionSizeHalfByte ; i ++ )
+    {
+        int turn = binary.at( 4 * i ) * 8 +
+                   binary.at( 4 * i + 1 ) * 4 +
+                   binary.at( 4 * i + 2 ) * 2 +
+                   binary.at( 4 * i + 3 ) ;
+        switch ( turn )
+        {
+            case 15 : tmp_heximal[i] = 'F' ; break ;
+            case 14 : tmp_heximal[i] = 'E' ; break ;
+            case 13 : tmp_heximal[i] = 'D' ; break ;
+            case 12 : tmp_heximal[i] = 'C' ; break ;
+            case 11 : tmp_heximal[i] = 'B' ; break ;
+            case 10 : tmp_heximal[i] = 'A' ; break ;
+            default : tmp_heximal[i] = QChar( turn + 48 ) ; break ;
+        }
+    }
+
+    return tmp_heximal ;
+
 }
