@@ -1,5 +1,5 @@
-#ifndef SICXEGENCODEWITHORIGIN_H
-#define SICXEGENCODEWITHORIGIN_H
+#ifndef SICXEGENCODEPURE_H
+#define SICXEGENCODEPURE_H
 
 #include <QHash>
 #include <QChar>
@@ -7,10 +7,10 @@
 #include "Source/PassTwo/passtwo.h"
 #include "Source/Instruction/instruction.h"
 
-class SICXEGenCodeWithOrigin : public PassTwo
+class SICXEGenCodePure : public PassTwo
 {
 public:
-    explicit SICXEGenCodeWithOrigin( );
+    SICXEGenCodePure();
     virtual void generateObjectCode ( void ) ;
     void assemblerDirectiveAction ( Instruction* instruction ) ;
     bool immediateAddressingCheck ( QString target ) ;
@@ -19,12 +19,13 @@ public:
     QString format2Handler ( Instruction* instruction ) ;
     QString format3Handler ( Instruction* instruction ) ;
     QString format4Handler ( Instruction* instruction ) ;
-signals:
-
-public slots:
+    void generateModificationRecord ( void ) ;
 private:
     int m_base ;
     int m_programCounter ;
+    int m_programStartLocation ;
+    QVector< Instruction* > m_modificationVector ;
+    QString m_eachLineStartLocation ;
 };
 
-#endif // SICXEGENCODEWITHORIGIN_H
+#endif // SICXEGENCODEPURE_H

@@ -33,7 +33,8 @@ SOURCES += Source/main.cpp \
     Source/Exception/exception.cpp \
     Source/Exception/syntaxexception.cpp \
     Source/PassTwo/sicxegencodewithorigin.cpp \
-    Source/Table/registertable.cpp
+    Source/Table/registertable.cpp \
+    Source/PassTwo/sicxegencodepure.cpp
 
 HEADERS += \
     Source/commandhandler.h \
@@ -59,4 +60,5 @@ HEADERS += \
     Source/Exception/exception.h \
     Source/Exception/syntaxexception.h \
     Source/PassTwo/sicxegencodewithorigin.h \
-    Source/Table/registertable.h
+    Source/Table/registertable.h \
+    Source/PassTwo/sicxegencodepure.h
