@@ -1,5 +1,5 @@
-COPY 	START	 1000 		
-FIRST 	STL	 RETADR 	
+COPY 	START	 1000		
+FIRST 	STL	 RETADR  . Comment Test	
 CLOOP 	JSUB	 RDREC 		 
  	LDA 	 LENGTH 	 
 	COMP	 ZERO 		 
@@ -15,21 +15,21 @@ ENDFIL 	LDA 	 EOF
 	RSUB 			 
 EOF 	BYTE 	 C'EOF' 	 
 THREE 	WORD 	 3 		 
-ZERO 	WORDO 	 0 		 
+ZERO 	WORD 	 0 		 
 RETADR 	RESW 	 1 		
 LENGTH 	RESW 	 1 		
-CLOOP 	RESB 	 4096 		
+BUFFER 	RESB 	 4096 		
 	.			
 	.	SUBROUTINE TO READ RECORD INTO BUFFER 
 	.			
-RDREC 	LDXR 	 ZERO 		 
+RDREC 	LDX 	 ZERO 		 
  	LDA 	 ZERO 		 
 RLOOP 	TD  	 INPUT 		 
 	JEQ 	 RLOOP 		 
 	RD 	 INPUT 		 
 	COMP 	 ZERO 		 
 	JEQ  	 EXIT 		 
-	SITCH 	 BUFFER,X        
+	STCH 	 BUFFER,X        
 	TIX 	 MAXLEN 	 
 	JLT 	 RLOOP 		 
 EXIT 	STX 	 LENGTH 	 

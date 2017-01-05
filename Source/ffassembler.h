@@ -22,6 +22,7 @@ public:
     void run ( void ) ; // 主程序的驅動。
     void setCommand ( int argc , char **argv ) ; // 從main()中將系統參數放入FFAssembler。
                                                  // 再將收到的指令送到commandHandler，然後解譯指令
+    PassTwo* passTwoFactory ( void ) ;
 signals:
 
 public slots:

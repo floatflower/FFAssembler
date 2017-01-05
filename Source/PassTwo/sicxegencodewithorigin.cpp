@@ -51,7 +51,7 @@ void SICXEGenCodeWithOrigin::generateObjectCode ( void ){
             {
                 bool ok ;
                 tmp_objectCode = GlobalUtility::decimalToHeximal( ( ( *it_instructionSet ) -> target() ).toInt(&ok,10) ) ;
-                tmp_objectCode = QString("%1").arg(tmp_objectCode,6,QChar(0)) ;
+                tmp_objectCode = QString("%1").arg(tmp_objectCode,6,QChar('0')) ;
             }
         }
         else if ( m_sicxeSearch -> isReserveWord ( tmp_operand ) )

@@ -42,14 +42,7 @@ void FFAssembler::run ( void )
         qDebug () << "Compile terminated.";
         exit ( 0 ) ;
     }
-    if ( m_commandHandler -> outputMode () == 0 )
-    {
-        m_passTwo = new SICXEGenCodeWithOrigin ;
-    }
-    else if ( m_commandHandler -> outputMode() == 1 )
-    {
-        m_passTwo = new SICGenCodePure ;
-    }
+    m_passTwo = passTwoFactory() ;
     m_passTwo -> setOutputFileName ( m_commandHandler -> outputFileName () ) ;
     m_passTwo -> setInstructionSet ( m_instructionSet ) ;
     m_passTwo -> setTableHandler ( m_tableHandler ) ;
@@ -63,4 +56,25 @@ void FFAssembler::setCommand ( int argc , char **argv )
 {
     m_commandHandler->setCommand( argc , argv ) ;
     m_commandHandler -> parseCommand ( ) ;
+}
+
+PassTwo* FFAssembler::passTwoFactory ( void )
+{
+    if ( m_commandHandler -> languageMode() )
+    {
+        // SIC Language
+        switch ( m_commandHandler -> outputMode() )
+        {
+            case 0 : return new SICXEGenCodeWithOrigin ; break ;
+        }
+    }
+    else
+    {
+        // SICXE Language
+        switch ( m_commandHandler -> outputMode () )
+        {
+            case 0 : return new SICGenCodeWithOrigin ; break ;
+            case 1 : return new SICGenCodePure;break ;
+        }
+    }
 }

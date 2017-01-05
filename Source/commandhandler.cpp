@@ -1,6 +1,9 @@
 #include <QDebug>
 
 #include "Source/commandhandler.h"
+#include <QString>
+#include <QStringList>
+
 
 CommandHandler::CommandHandler( QObject *parent ): QObject(parent)
 {
@@ -29,6 +32,18 @@ void CommandHandler::parseCommand ( void )
         if ( QString ( m_argv[ loopL1 ] ) == "--input" || QString ( m_argv[ loopL1 ] ) == "-i" )
         {
             m_inputFileName = QString ( m_argv[ loopL1 + 1 ] ) ;
+
+            QStringList pattern = m_inputFileName.split(".",QString::SkipEmptyParts) ;
+
+            if ( pattern.at(pattern.size()-1) == "sic" || pattern.at(pattern.size()-1) == "SIC" )
+            {
+                m_languageMode = 0 ;
+            }
+            else if ( pattern.at(pattern.size()-1) == "sicxe" || pattern.at(pattern.size()-1) == "SICXE" )
+            {
+                m_languageMode = 1 ;
+            }
+
             loopL1 ++ ;
         }
         if ( QString ( m_argv[ loopL1 ] ) == "--output" || QString ( m_argv[ loopL1 ] ) == "-o" )
@@ -88,4 +103,9 @@ QString CommandHandler::outputFileName ( void )
 int CommandHandler::outputMode ( void )
 {
     return m_outputMode ;
+}
+
+bool CommandHandler::languageMode ( void )
+{
+    return m_languageMode ;
 }

@@ -62,7 +62,7 @@ QString GlobalUtility::decimalToHeximal ( int decimal )
 
         int adjustSize = 12 ;
 
-        qDebug()<<tmp_posBinarySize<<"/"<<adjustSize;
+        // qDebug()<<tmp_posBinarySize<<"/"<<adjustSize;
 
         QBitArray* tmp_adjustBinary = new QBitArray(adjustSize,0) ;
 
@@ -74,7 +74,7 @@ QString GlobalUtility::decimalToHeximal ( int decimal )
             (*tmp_adjustBinary)[j] = ( *tmp_posBinary )[i] ;
         }
 
-        qDebug()<<*tmp_posBinary<<"/"<<*tmp_adjustBinary;
+        // qDebug()<<*tmp_posBinary<<"/"<<*tmp_adjustBinary;
 
         tmp_posBinary = tmp_adjustBinary ;
 

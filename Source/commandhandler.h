@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QHash>
+
 /*
  * 處理系統指令，可以透過CommandHandler取得必要資訊：
  * 1. 輸入檔名稱
@@ -22,6 +23,7 @@ public:
     QString inputFileName ( void ) ;
     QString outputFileName ( void ) ;
     int outputMode ( void ) ;
+    bool languageMode ( void ) ;
 signals:
 
 public slots:
@@ -32,6 +34,7 @@ private:
     QString m_inputFileName ;
     QString m_outputFileName ;
     int m_outputMode ;
+    bool m_languageMode ;
 };
 
 #endif // COMMANDHANDLER_H
