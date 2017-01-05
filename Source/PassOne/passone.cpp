@@ -66,6 +66,7 @@ void PassOne::preprocessor ( void )
         }catch(SyntaxException& e)
         {
             e.what() ;
+            m_noError = false ;
         }
     }
 
