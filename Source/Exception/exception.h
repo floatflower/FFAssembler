@@ -1,17 +1,17 @@
 #ifndef EXCEPTION_H
 #define EXCEPTION_H
 
-#include <QObject>
+#include <QString>
+#include <QException>
 
-class Exception : public QObject
+class Exception : public QException
 {
-    Q_OBJECT
 public:
-    explicit Exception(QObject *parent = 0);
+    explicit Exception( );
     virtual void what( void ) ;
-signals:
 
-public slots:
+protected :
+    QString m_errorMessage ;
 };
 
 #endif // EXCEPTION_H

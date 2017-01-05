@@ -15,9 +15,9 @@ ENDFIL 	LDA 	EOF
       +JSUB 	WRREC 		 	 
 	J      @RETADR 		 	 
 EOF 	BYTE 	C'EOF' 		 
-RETADR 	RESW 	1 		 
-LENGTH 	RESW 	1 		 	 
-BUFFER 	RESB 	4096 		 	 
+RETADR RESW 	1 		 
+LENGTH 	RESW 	1
+BUFFER 	RESB 4096		 	 
 	.			 
 	.	SUBROUTINE TO READ RECORD INTO BUFFER 	 
 	.				 

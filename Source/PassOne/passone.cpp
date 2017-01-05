@@ -18,6 +18,9 @@
 #include "Source/Instruction/variable.h"
 #include "Source/Instruction/assemblydirective.h"
 
+#include "Source/Exception/exception.h"
+#include "Source/Exception/syntaxexception.h"
+
 PassOne::PassOne(QObject *parent) : QObject(parent)
 {
     m_instructionSet = new InstructionSet ;
@@ -58,7 +61,12 @@ void PassOne::preprocessor ( void )
         {
             continue ;
         }
-        package ( lineProcessed , countLine ) ; // 將格式化的原始碼打包成原始物件
+        try{
+            package ( lineProcessed , countLine ) ; // 將格式化的原始碼打包成原始物件
+        }catch(SyntaxException& e)
+        {
+            e.what() ;
+        }
     }
 
     inputFile.close( ) ;
@@ -90,7 +98,11 @@ void PassOne::package ( QString lineProcessed , int lineNumber )
         QString tmp_secondKeyword = temp_wordVector.at ( 1 ) ;
         if ( ! m_sicxeSearch -> isLegal ( tmp_secondKeyword ) )
         {
-        // throw Exception
+            QString error = QString("At Line %1 : %2 is not a legal operand.")
+                            .arg(lineNumber)
+                            .arg(tmp_secondKeyword);
+
+            throw SyntaxException( error ) ;
         }
 
         // ======= Checking Type =======
@@ -129,7 +141,12 @@ void PassOne::package ( QString lineProcessed , int lineNumber )
         }
         else
         {
-            // Throw Exception
+            QString error = QString("At Line %1 : %2 or %3 is not a legal operand.")
+                    .arg(lineNumber)
+                    .arg(temp_wordVector.at(0))
+                    .arg(temp_wordVector.at(1));
+
+            throw SyntaxException( error ) ;
         }
 
         // ======= Check Type =======
@@ -164,7 +181,11 @@ void PassOne::package ( QString lineProcessed , int lineNumber )
     {
         if ( ! m_sicxeSearch -> isLegal ( temp_wordVector.at( 0 ) ) )
         {
-            // throw Exception
+            QString error = QString("At Line %1 : %2 is not a legal operand.")
+                    .arg(lineNumber)
+                    .arg(temp_wordVector.at(0));
+
+            throw SyntaxException( error ) ;
         }
 
         // ======= check type =======
@@ -176,7 +197,11 @@ void PassOne::package ( QString lineProcessed , int lineNumber )
         }
         else if ( m_sicxeSearch -> isVariable ( temp_wordVector.at( 0 ) ) )
         {
-            // throw Exception
+            QString error = QString("At Line %1 : %2 must have a value")
+                    .arg(lineNumber)
+                    .arg(temp_wordVector.at(0));
+
+            throw SyntaxException( error ) ;
         }
         else if ( m_sicxeSearch -> isReserveWord ( temp_wordVector.at(0) ) )
         {
@@ -215,14 +240,17 @@ void PassOne::instructionHandler ( Instruction* instruction , int lineNumber )
         int size = variableSize ( instruction , lineNumber ) ;
         if ( instruction -> symbol ( ) == QString ("") )
         {
-            // Variable一定要帶有Symbol，否則會有Undefined的問題
-            qDebug() << "[Error] At line"
-                     << lineNumber
-                     << ": Variable :"
-                     << instruction -> operand ()
-                     << "doesn't have symbol." ;
-            m_noError = false ;
-            return ;
+            QString error = QString("At Line %1 : %2 must be defined a unique symbol.")
+                            .arg(lineNumber)
+                            .arg(instruction->operand());
+            throw SyntaxException(error) ;
+        }
+        else if ( instruction -> target() == QString("") )
+        {
+            QString error = QString("At Line %1 : %2 variable must have a value.")
+                            .arg(lineNumber)
+                            .arg(instruction->operand());
+            throw SyntaxException(error) ;
         }
         else
         {
