@@ -130,6 +130,16 @@ QString SICXEGenCodeWithOrigin::format3Handler ( Instruction* instruction )
     {
         tmp_objectCode.setBit( 7 , 1 ) ; // set i flag
         tmp_realTarget = tmp_target.mid( 1 , tmp_target.size ( ) -1 ) ;
+        if ( ! m_tableHandler -> symbolTable() -> contains ( tmp_realTarget ) )
+        {
+            bool ok ;
+            int tmp_immediateValue = tmp_realTarget.toInt(&ok,10);
+            QString tmp_immediateValueStr = GlobalUtility::decimalToHeximal(tmp_immediateValue) ;
+            QString tmp_objectCodeStr = GlobalUtility::binaryToHeximal( tmp_objectCode ) ;
+            tmp_immediateValueStr = QString("%1").arg(tmp_immediateValueStr,3,'0') ;
+
+            return tmp_objectCodeStr + tmp_immediateValueStr ;
+        }
     }
     else if ( indirectAddressingCheck ( tmp_target ) )
     {
@@ -187,6 +197,17 @@ QString SICXEGenCodeWithOrigin::format4Handler ( Instruction* instruction )
     {
         tmp_objectCode.setBit( 7 , 1 ) ; // set i flag
         tmp_realTarget = tmp_target.mid( 1 , tmp_target.size ( ) -1 ) ;
+        if ( ! m_tableHandler -> symbolTable() -> contains ( tmp_realTarget ) )
+        {
+            bool ok ;
+            int tmp_immediateValue = tmp_realTarget.toInt(&ok,10);
+            QString tmp_immediateValueStr = GlobalUtility::decimalToHeximal(tmp_immediateValue) ;
+            QString tmp_objectCodeStr = GlobalUtility::binaryToHeximal( tmp_objectCode ) ;
+            tmp_immediateValueStr = QString("%1").arg(tmp_immediateValueStr,5,'0') ;
+
+            return tmp_objectCodeStr + tmp_immediateValueStr ;
+        }
+
     }
     else if ( indirectAddressingCheck ( tmp_target ) )
     {

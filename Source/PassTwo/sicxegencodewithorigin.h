@@ -9,7 +9,6 @@
 
 class SICXEGenCodeWithOrigin : public PassTwo
 {
-    Q_OBJECT
 public:
     explicit SICXEGenCodeWithOrigin( );
     virtual void generateObjectCode ( void ) ;

@@ -10,6 +10,7 @@
 #include "Source/SICXESearch/sicxesearch.h"
 #include "Source/globalutility.h"
 #include "Source/PassTwo/sicxegencodewithorigin.h"
+#include "Source/PassTwo/sicxegencodepure.h"
 
 FFAssembler::FFAssembler(QObject *parent) : QObject(parent)
 {
@@ -66,6 +67,7 @@ PassTwo* FFAssembler::passTwoFactory ( void )
         switch ( m_commandHandler -> outputMode() )
         {
             case 0 : return new SICXEGenCodeWithOrigin ; break ;
+            case 1 : return new SICXEGenCodePure ; break ;
         }
     }
     else
