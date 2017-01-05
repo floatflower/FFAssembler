@@ -329,7 +329,7 @@ void SICXEGenCodePure::generateModificationRecord ( void )
     {
         QString tmp_operand = ( *it_modificationVector )->operand() ;
         QString tmp_location = GlobalUtility::decimalToHeximal((*it_modificationVector)->location()+1) ;
-        QString eachLine = QString("M%1%2\n").arg(tmp_location,5,QChar('0')).arg("05") ;
+        QString eachLine = QString("E%1%2\n").arg(tmp_location,5,QChar('0')).arg("05") ;
         m_compileResult += eachLine ;
     }
 }
