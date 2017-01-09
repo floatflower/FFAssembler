@@ -162,6 +162,11 @@ void SICXEGenCodePure::assemblerDirectiveAction ( Instruction* instruction )
 
         m_compileResult += ( "M" + tmp_programBeginStr ) ;
     }
+    if ( ( instruction -> operand () ) == "BASE" )
+    {
+        int tmp_baseLocation = m_tableHandler -> symbolTable() -> value ( instruction -> target () ) ;
+        m_base = tmp_baseLocation ;
+    }
 }
 
 bool SICXEGenCodePure::immediateAddressingCheck ( QString target )
@@ -209,6 +214,7 @@ QString SICXEGenCodePure::format3Handler ( Instruction* instruction )
     QString tmp_target = instruction -> target () ;
     QBitArray tmp_objectCode = m_sicxeSearch -> searchOpcode ( tmp_operand ) ;
     QString tmp_realTarget = tmp_target ;
+    QString tmp_realLeftTarget = instruction -> leftTarget () ;
 
     tmp_objectCode.resize(12);
 
@@ -216,6 +222,7 @@ QString SICXEGenCodePure::format3Handler ( Instruction* instruction )
     {
         tmp_objectCode.setBit( 7 , 1 ) ; // set i flag
         tmp_realTarget = tmp_target.mid( 1 , tmp_target.size ( ) -1 ) ;
+        tmp_realLeftTarget = tmp_realLeftTarget.mid(1,tmp_realLeftTarget.size()-1) ;
         if ( ! m_tableHandler -> symbolTable() -> contains ( tmp_realTarget ) )
         {
             bool ok ;
@@ -231,6 +238,7 @@ QString SICXEGenCodePure::format3Handler ( Instruction* instruction )
     {
         tmp_objectCode.setBit(6,1) ; // set n flag
         tmp_realTarget = tmp_target.mid ( 1 , tmp_target.size() - 1 ) ;
+        tmp_realLeftTarget = tmp_realLeftTarget.mid(1,tmp_realLeftTarget.size()-1) ;
     }
     else{
         tmp_objectCode.setBit(6,1) ;
@@ -241,29 +249,49 @@ QString SICXEGenCodePure::format3Handler ( Instruction* instruction )
         }
     }
 
+    QString tmp_objectCodeStr = GlobalUtility::binaryToHeximal( tmp_objectCode ) ;
+
+
+    if ( tmp_realTarget == QString("") )
+    {
+        return tmp_objectCodeStr + QString ( "000" ) ;
+    }
+
+
     int tmp_targetLocation = m_tableHandler -> symbolTable() -> value ( tmp_realTarget ) ;
+    int tmp_bTargetLocation = m_tableHandler -> symbolTable() -> value ( tmp_realLeftTarget ) ;
 
     int distance = tmp_targetLocation - m_programCounter ;
+    int baseDistance = tmp_bTargetLocation - m_base ;
 
     QString tmp_targetStr ;
+
+    // qDebug() << distance << "/" << baseDistance << tmp_operand ;
 
     if ( distance >= -2048 && distance <= 2047 )
     {
         tmp_objectCode.setBit( 10 , 1 ) ; // set p flag
         tmp_targetStr = GlobalUtility::decimalToHeximal( distance ) ;
     }
-    else if ( distance >= 0 && distance <= 4095 )
+    else if ( baseDistance >= 0 && baseDistance <= 4095 )
     {
         tmp_objectCode.setBit( 9 , 1 ) ; // set b flag
-        tmp_targetStr = GlobalUtility::decimalToHeximal( distance ) ;
+        tmp_targetStr = GlobalUtility::decimalToHeximal( baseDistance ) ;
     }
-    else if ( distance < -2048 || distance > 4095 ){
-        // error
+    else{
+        qDebug().noquote() << "At Line : "
+                 << instruction -> lineNumber()
+                 << " : This instruction \""
+                 << tmp_operand
+                 << "\" doesn't support distance over 4095, maybe use \"+"
+                 << tmp_operand
+                 << "\" to fix this problem." ;
+                 // << tmp_targetLocation << "/" << m_base << "/" << distance << "/" << baseDistance ;
     }
 
     QString tmp_targetAdjust = QString("%1").arg(tmp_targetStr,3,QChar('0')) ;
 
-    QString tmp_objectCodeStr = GlobalUtility::binaryToHeximal( tmp_objectCode ) ;
+    tmp_objectCodeStr = GlobalUtility::binaryToHeximal( tmp_objectCode ) ;
 
     return tmp_objectCodeStr + tmp_targetAdjust ;
 
