@@ -24,7 +24,7 @@ $ ./ff -h
 ```
 
 **編譯程式碼：**   
-目前專案僅能編譯TestData中的Figure2.1.txt   
+目前專案僅能編譯TestData中的Figure2.8.txt   
 編譯方法:    
 ```
 $ ./ff --input PATH/TO/Figure2.1.txt --output PATH/TO/Figure2.1-Result.txt --mode 0
